@@ -1,6 +1,8 @@
 "use client";
 
+import CKEditor from "@/components/layouts/CKEditor";
 import FieldInput from "@/components/layouts/FieldInput";
+import InputSkills from "@/components/layouts/InputSkills";
 import {
   Form,
   FormControl,
@@ -25,10 +27,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RadioGroup, RadioGroupItem } from "@radix-ui/react-radio-group";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import type z from "zod";
 
 const PostJobPage = () => {
+  const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
   const form = useForm<z.infer<typeof jobFormSchema>>({
     resolver: zodResolver(jobFormSchema),
     defaultValues: {
@@ -37,6 +41,10 @@ const PostJobPage = () => {
   });
 
   const onSubmit = (val: z.infer<typeof jobFormSchema>) => {};
+
+  useEffect(() => {
+    setEditorLoaded(true);
+  }, []);
 
   return (
     <div>
@@ -189,6 +197,57 @@ const PostJobPage = () => {
                   <FormMessage />
                 </FormItem>
               )}
+            />
+          </FieldInput>
+
+          <FieldInput
+            title="Requried Skills"
+            subtitle="Add requried skills for the job"
+          >
+            <InputSkills form={form} />
+          </FieldInput>
+
+          <FieldInput
+            title="Job Descriptions"
+            subtitle="Job titles must be describe one position"
+          >
+            <CKEditor
+              editorLoaded={editorLoaded}
+              form={form}
+              name={"jobDescription"}
+            />
+          </FieldInput>
+
+          <FieldInput
+            title="Responsibilities"
+            subtitle="Outline the core responsibilities of the position"
+          >
+            <CKEditor
+              editorLoaded={editorLoaded}
+              form={form}
+              name={"responsibility"}
+            />
+          </FieldInput>
+
+          <FieldInput
+            title="Who You Are"
+            subtitle="Add your preferred candidates qualifications"
+          >
+            <CKEditor
+              editorLoaded={editorLoaded}
+              form={form}
+              name={"whoYouAre"}
+            />
+          </FieldInput>
+
+          <FieldInput
+            title="Nice-To-Haves"
+            subtitle="Add nice-to-have skills and qualifications for the role to encourage a more diverse set of candidates "
+          >
+            <CKEditor
+              editorLoaded={editorLoaded}
+              form={form}
+              name={"niceToHaves"}
             />
           </FieldInput>
         </form>
