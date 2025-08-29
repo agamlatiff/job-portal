@@ -7,6 +7,7 @@ export const jobFormSchema = z.object({
     .nonempty({ message: "Job Title is requried" })
     .min(3, { message: "Job Title must be at least 3 characters" }),
   jobType: z.enum(JOBTYPES, { message: "You need to select to a job type" }),
+  salaryFrom: z.string({ message: "Salary From is required" }),
   salaryTo: z.string({ message: "Salary To is required" }),
   categoryId: z.string({ message: "You need to select a category" }),
   requiredSkills: z
