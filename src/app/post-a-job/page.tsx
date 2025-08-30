@@ -2,7 +2,9 @@
 
 import CKEditor from "@/components/layouts/CKEditor";
 import FieldInput from "@/components/layouts/FieldInput";
+import InputBenefits from "@/components/layouts/InputBenefits";
 import InputSkills from "@/components/layouts/InputSkills";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -250,6 +252,17 @@ const PostJobPage = () => {
               name={"niceToHaves"}
             />
           </FieldInput>
+
+          <FieldInput
+            title="Perks and Benefits"
+            subtitle="Encourage more people to apply by sharing the attractive rewards and benefits you offer your employees"
+          >
+            <InputBenefits form={form}/>
+          </FieldInput>
+          
+          <div className="flex justify-end">
+            <Button size={'lg'}>Do a Review</Button>
+          </div>
         </form>
       </Form>
     </div>
