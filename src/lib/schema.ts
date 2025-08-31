@@ -31,3 +31,16 @@ export const jobFormSchema = z.object({
     .array()
     .nonempty({ message: "Benefits must be at least 1 benefit" }),
 });
+
+
+export const overviewFormSchema = z.object({
+  image: z.any().refine((item: any) => item.name, {message: 'Image is required'}),
+  name: z.string({message: 'Name is requried'}),
+  website: z.string({message: 'Website is requried'}),
+  location: z.string({message: 'Location is requried'}),
+  employee: z.string({message: 'Employee is requried'}),
+  industry: z.string({message: 'Industry is requried'}),
+  dateFounded: z.string({message: 'Date Founded is requried'}),
+  techStack: z.string().array().nonempty({message: 'Tech stack must be at least 1 data'}),
+  description : z.string({message: 'Description is required'})
+})

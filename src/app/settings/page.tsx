@@ -1,3 +1,4 @@
+import OverviewForm from "@/components/layouts/OverviewForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
 
@@ -13,7 +14,7 @@ const SettingsPage = () => {
           <TabsTrigger value="teams">Teams</TabsTrigger>
         </TabsList>
         <TabsContent value="overveiw">
-          <div>overview</div>
+         <OverviewForm/>
         </TabsContent>
         <TabsContent value="socialLinks">
           <div>socialLinks</div>
