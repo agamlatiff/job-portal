@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/router";
@@ -13,9 +13,8 @@ import { BsBuilding, BsGear } from "react-icons/bs";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 const Sidebar = () => {
-  
-  const router = useRouter()
-  
+  const router = useRouter();
+
   return (
     <div className="pb-12 min-h-screen">
       <div className="space-y-4 py-4">
@@ -23,7 +22,8 @@ const Sidebar = () => {
           <h2 className="mb-2 px-4 text-lg font-semibold">Dashboard</h2>
         </div>
         <div className="space-y-3">
-          <Button onClick={() => router.push('/')}
+          <Button
+            onClick={() => router.push("/")}
             variant={"ghost"}
             className="w-full justify-start rounded-none hover:text-primary"
           >
@@ -52,7 +52,7 @@ const Sidebar = () => {
             All Applicants
           </Button>
           <Button
-          onClick={() => router.push('/job-listings')}
+            onClick={() => router.push("/job-listings")}
             variant={"ghost"}
             className="w-full justify-start rounded-none hover:text-primary"
           >
@@ -71,6 +71,7 @@ const Sidebar = () => {
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">Setting</div>
         <Button
+          onClick={() => router.push("/settings")}
           variant={"ghost"}
           className="w-full justify-start rounded-none hover:text-primary"
         >

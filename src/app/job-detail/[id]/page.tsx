@@ -29,8 +29,7 @@ const JobDetailPage = () => {
           <Applicants />
         </TabsContent>
         <TabsContent value="jobDetails">
-          {" "}
-          <JobDetail />{" "}
+          <JobDetail />
         </TabsContent>
       </Tabs>
     </div>
