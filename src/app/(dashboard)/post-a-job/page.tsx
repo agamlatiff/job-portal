@@ -33,7 +33,12 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import type z from "zod";
 
+import useSWR from "swr";
+import { fetcher } from "@/lib/utils";
+import type { CategoryJob } from "@prisma/client";
+
 const PostJobPage = () => {
+  const { data, error, isLoading } = useSWR<CategoryJob[]>("/api/job/categories", fetcher);
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
   const form = useForm<z.infer<typeof jobFormSchema>>({
     resolver: zodResolver(jobFormSchema),
@@ -183,13 +188,11 @@ const PostJobPage = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="m@example.com">
-                        m@example.com
-                      </SelectItem>
-                      <SelectItem value="m@google.com">m@google.com</SelectItem>
-                      <SelectItem value="m@support.com">
-                        m@support.com
-                      </SelectItem>
+                      {data?.map((item: any) => (
+                        <SelectItem key={item} value="m@example.com">
+                            {item}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormDescription>
@@ -206,7 +209,7 @@ const PostJobPage = () => {
             title="Required Skills"
             subtitle="Add Required skills for the job"
           >
-            <InputSkills form={form} name="requiredSkills" label="Add Skills"/>
+            <InputSkills form={form} name="requiredSkills" label="Add Skills" />
           </FieldInput>
 
           <FieldInput
@@ -257,11 +260,11 @@ const PostJobPage = () => {
             title="Perks and Benefits"
             subtitle="Encourage more people to apply by sharing the attractive rewards and benefits you offer your employees"
           >
-            <InputBenefits form={form}/>
+            <InputBenefits form={form} />
           </FieldInput>
-          
+
           <div className="flex justify-end">
-            <Button size={'lg'}>Do a Review</Button>
+            <Button size={"lg"}>Do a Review</Button>
           </div>
         </form>
       </Form>
