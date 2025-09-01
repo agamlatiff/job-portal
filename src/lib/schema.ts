@@ -43,8 +43,16 @@ export const overviewFormSchema = z.object({
   industry: z.string({ message: "Industry is requried" }),
   dateFounded: z.date({ message: "Date Founded is requried" }),
   techStack: z
-    .string({message: 'Tech stack is required'})
+    .string({ message: "Tech stack is required" })
     .array()
     .nonempty({ message: "Tech stack must be at least 1 data" }),
   description: z.string({ message: "Description is required" }),
+});
+
+export const socialMediaFormSchema = z.object({
+  facebook: z.string({ message: "Facebook link is required" }),
+  instagram: z.string({ message: "Instagram link is required" }),
+  linkedin: z.string({ message: "Linkedin link is required" }),
+  twitter: z.string({ message: "Twitter link is required" }),
+  youtube: z.string({ message: "Youtube link is required" }),
 });
