@@ -81,7 +81,7 @@ const SignInPage = () => {
               <Button className="w-full">Sign In</Button>
 
               <div className="text-sm">
-                Don't have an account{" "}
+                Don&apos;t have an account{" "}
                 <Link href={"/auth/signup"} className="text-primary">
                   Sign Up
                 </Link>
