@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Dialog,
   DialogContent,
@@ -10,13 +12,26 @@ import { Button } from "../ui/button";
 import { PlusIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import type z from "zod";
-import type { teamFormSchema } from "@/lib/schema";
+import { teamFormSchema } from "@/lib/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Separator } from "../ui/separator";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { Input } from "../ui/input";
 
 const DialogAddTeam = () => {
-  const form = useFor<z.infer<typeof teamFormSchema>>({
-    
-  })
-  
+  const form = useForm<z.infer<typeof teamFormSchema>>({
+    resolver: zodResolver(teamFormSchema),
+  });
+
+  const onSubmit = (val: z.infer<typeof teamFormSchema>) => {};
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -27,12 +42,73 @@ const DialogAddTeam = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
+          <DialogTitle>Add new team</DialogTitle>
+          <DialogDescription>Fill the field to add new team</DialogDescription>
         </DialogHeader>
+
+        <Separator />
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="position"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Position</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Position" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="grid grid-cols-2 gap-3">
+              <FormField
+                control={form.control}
+                name="instagram"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Instagram</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Instagram" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="linkedin"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Linkedin</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Linkedin" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            
+            <Button>Save</Button>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );
