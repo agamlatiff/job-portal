@@ -36,9 +36,17 @@ import type z from "zod";
 import useSWR from "swr";
 import { fetcher } from "@/lib/utils";
 import type { CategoryJob } from "@prisma/client";
+import Applicants from "@/components/layouts/Applicants";
+import { useSession } from "next-auth/react";
+import moment from "moment";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 const PostJobPage = () => {
-  const { data, error, isLoading } = useSWR<CategoryJob[]>("/api/job/categories", fetcher);
+  const { data, error, isLoading } = useSWR<CategoryJob[]>(
+    "/api/job/categories",
+    fetcher
+  );
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
   const form = useForm<z.infer<typeof jobFormSchema>>({
     resolver: zodResolver(jobFormSchema),
@@ -47,7 +55,49 @@ const PostJobPage = () => {
     },
   });
 
-  const onSubmit = (val: z.infer<typeof jobFormSchema>) => {};
+  const { data: session } = useSession();
+  const { toast } = useToast();
+
+  const router = useRouter();
+
+  const onSubmit = async (val: z.infer<typeof jobFormSchema>) => {
+    try {
+      const body: any = {
+        applicants: 0,
+        benefits: val.benefits,
+        categoryId: val.categoryId,
+        companyId: session?.user.id!!,
+        datePosted: moment().toDate(),
+        description: val.jobDescription,
+        dueDate: moment().add(1, "M").toDate(),
+        jobType: val.jobType,
+        needs: 20,
+        niceToHaves: val.niceToHaves,
+        requiredSkills: val.requiredSkills,
+        responsibility: val.responsibility,
+        roles: val.roles,
+        salaryFrom: val.salaryFrom,
+        salaryTo: val.salaryTo,
+        whoYouAre: val.whoYouAre,
+      };
+
+      await fetch("/api/job", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      await router.push("/job/listings");
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Please try again",
+      });
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     setEditorLoaded(true);
@@ -190,7 +240,7 @@ const PostJobPage = () => {
                     <SelectContent>
                       {data?.map((item: any) => (
                         <SelectItem key={item} value="m@example.com">
-                            {item}
+                          {item}
                         </SelectItem>
                       ))}
                     </SelectContent>

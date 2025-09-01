@@ -23,6 +23,9 @@ export const jobFormSchema = z.object({
   whoYouAre: z
     .string({ message: "Who You Are is required" })
     .min(10, { message: "Who You Are must be at least 10 characters" }),
+  niceToHaves: z
+    .string({ message: "Nice To Haves is required" })
+    .min(10, { message: "Nice To Haves must be at least 10 characters" }),
   benefits: z
     .object({
       benefit: z.string(),
@@ -72,7 +75,7 @@ export const signInFormSchema = z.object({
 });
 
 export const signUpFormSchema = z.object({
-  name: z.string({message: 'Name is required'}),
+  name: z.string({ message: "Name is required" }),
   email: z
     .string({ message: "Email is required" })
     .email({ message: "Email is not valid" }),
