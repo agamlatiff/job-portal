@@ -1,6 +1,5 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { email } from "zod";
 import prisma from "../../../../../lib/prisma";
 import { comparePassword } from "@/lib/utils";
 
@@ -62,3 +61,6 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
+
+const handler = NextAuth(authOptions) 
+export {handler as GET, handler as POST} 

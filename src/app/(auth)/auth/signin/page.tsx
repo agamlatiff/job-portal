@@ -14,6 +14,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import type z from "zod";
+import { signIn } from "next-auth/react";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Sign In",
@@ -24,9 +27,25 @@ const SignInPage = () => {
     resolver: zodResolver(signInFormSchema),
   });
 
-  const onSubmit = (val: z.infer<typeof signInFormSchema>) => {
-    console.log(val);
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const onSubmit = async (val: z.infer<typeof signInFormSchema>) => {
+    const authenticated = await signIn("credentials", {
+      ...val,
+      redirect: false,
+    });
+
+    if (authenticated?.error) {
+      toast({
+        title: "Error",
+        description: "Email or Password maybe wrong",
+      });
+      return;
+    }
   };
+
+  router.push("/");
 
   return (
     <div className="relative w-full h-screen">
