@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  LOCATION_OPTIONS,
-  overviewFormSchema,
-  type optionType,
-} from "@/lib/schema";
+import { overviewFormSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type z from "zod";
@@ -29,6 +25,17 @@ import {
   SelectValue,
 } from "../ui/select";
 import Link from "next/link";
+import {
+  EMPLOYEE_OPTIONS,
+  LOCATION_OPTIONS,
+  type optionType,
+} from "@/constants";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "../ui/calendar";
 
 const OverviewForm = () => {
   const form = useForm<z.infer<typeof overviewFormSchema>>({
@@ -71,6 +78,7 @@ const OverviewForm = () => {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name="website"
@@ -80,7 +88,7 @@ const OverviewForm = () => {
                     <FormControl>
                       <Input
                         className="w-[450px]"
-                        placeholder="Twitter"
+                        placeholder="https://twitter.com"
                         {...field}
                       />
                     </FormControl>
@@ -116,6 +124,116 @@ const OverviewForm = () => {
                       You can manage email addresses in your{" "}
                       <Link href="/examples/forms">email settings</Link>.
                     </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className="w-[450px] grid grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="employee"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Employee</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Employee" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {LOCATION_OPTIONS.map(
+                            (item: optionType, i: number) => (
+                              <SelectItem key={item.id + i} value={item.id}>
+                                {item.label}
+                              </SelectItem>
+                            )
+                          )}
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>
+                        You can manage email addresses in your{" "}
+                        <Link href="/examples/forms">email settings</Link>.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="industry"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Industry</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Industry" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {EMPLOYEE_OPTIONS.map(
+                            (item: optionType, i: number) => (
+                              <SelectItem key={item.id + i} value={item.id}>
+                                {item.label}
+                              </SelectItem>
+                            )
+                          )}
+                        </SelectContent>
+                      </Select>
+                      <FormDescription>
+                        You can manage email addresses in your{" "}
+                        <Link href="/examples/forms">email settings</Link>.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <FormField
+                control={form.control}
+                name="dateFounded"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Date Founded</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-[450px] pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
                     <FormMessage />
                   </FormItem>
                 )}
