@@ -8,10 +8,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 import { signUpFormSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import type z from "zod";
 
@@ -20,12 +22,31 @@ export const metadata: Metadata = {
 };
 
 const SignUpPage = () => {
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof signUpFormSchema>>({
     resolver: zodResolver(signUpFormSchema),
   });
 
-  const onSubmit = (val: z.infer<typeof signUpFormSchema>) => {
-    console.log(val);
+  const router = useRouter();
+
+  const onSubmit = async (val: z.infer<typeof signUpFormSchema>) => {
+    try {
+      await fetch("/api/company/new-user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(val),
+      });
+
+      await router.push("/auth/signin");
+    } catch (e) {
+      console.log(e);
+      toast({
+        title: "Error",
+        description: "Please try again",
+      });
+    }
   };
 
   return (
@@ -48,10 +69,7 @@ const SignUpPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        placeholder="Enter your name..."
-                        {...field}
-                      />
+                      <Input placeholder="Enter your name..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -64,10 +82,7 @@ const SignUpPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      <Input
-                        placeholder="Enter your email..."
-                        {...field}
-                      />
+                      <Input placeholder="Enter your email..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -94,7 +109,7 @@ const SignUpPage = () => {
               <Button className="w-full">Sign Up</Button>
 
               <div className="text-sm">
-               Already have an account {" "}
+                Already have an account{" "}
                 <Link href={"/auth/signin"} className="text-primary">
                   Sign In
                 </Link>
