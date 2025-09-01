@@ -1,5 +1,6 @@
 import { AiFillInstagram, AiFillLinkedin } from "react-icons/ai";
 import FieldInput from "./FieldInput";
+import DialogAddTeam from "./DialogAddTeam";
 
 const TeamForm = () => {
   return (
@@ -10,6 +11,7 @@ const TeamForm = () => {
       <div className="w-[65%] mb-5">
         <div className="flex flex-row justify-between items-center">
           <div className="text-lg font-semibold">2 Members</div>
+          <DialogAddTeam/>
         </div>
         <div className="grid grid-cols-3 gap-5 mt-6 ">
           {[0, 1, 2].map((item: number) => (
