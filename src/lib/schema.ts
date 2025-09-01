@@ -43,7 +43,7 @@ export const overviewFormSchema = z.object({
   industry: z.string({ message: "Industry is requried" }),
   dateFounded: z.date({ message: "Date Founded is requried" }),
   techStack: z
-    .string()
+    .string({message: 'Tech stack is required'})
     .array()
     .nonempty({ message: "Tech stack must be at least 1 data" }),
   description: z.string({ message: "Description is required" }),

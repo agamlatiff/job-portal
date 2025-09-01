@@ -203,10 +203,10 @@ const PostJobPage = () => {
           </FieldInput>
 
           <FieldInput
-            title="Requried Skills"
-            subtitle="Add requried skills for the job"
+            title="Required Skills"
+            subtitle="Add Required skills for the job"
           >
-            <InputSkills form={form} />
+            <InputSkills form={form} name="requiredSkills" label="Add Skills"/>
           </FieldInput>
 
           <FieldInput
