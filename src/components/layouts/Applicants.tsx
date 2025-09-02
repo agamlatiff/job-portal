@@ -9,8 +9,14 @@ import {
 } from "@/components/ui/table";
 import { JOB_APPLICANTS_COLUMNS, JOB_APPLICANTS_DATA } from "@/constants";
 import ButtonActionTable from "./ButtonActionTable";
+import type { Applicant } from "@prisma/client";
+import type { FC } from "react";
 
-const Applicants = () => {
+interface ApplicantsProps {
+  applicants: any;
+}
+
+const Applicants: FC<ApplicantsProps> = ({ applicants }) => {
   return (
     <Table>
       <TableHeader>
@@ -22,15 +28,18 @@ const Applicants = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {JOB_APPLICANTS_DATA.map((item: any, i: number) => (
-          <TableRow key={item.roles + i}>
-            <TableCell>{item.name}</TableCell>
-            <TableCell>{item.appliedDate}</TableCell>
-            <TableCell>
-              <ButtonActionTable url="" />
-            </TableCell>
-          </TableRow>
-        ))}
+        {applicants && (
+          <>
+            {applicants.map((item: any, i: number) => (
+              <TableRow key={item.id + i}>
+                <TableCell>{item.name}</TableCell>
+                <TableCell>
+                  <ButtonActionTable url="" />
+                </TableCell>
+              </TableRow>
+            ))}
+          </>
+        )}
       </TableBody>
     </Table>
   );

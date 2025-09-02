@@ -10,17 +10,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { signInFormSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { Metadata } from "next";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import type z from "zod";
 import { signIn } from "next-auth/react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-
-export const metadata: Metadata = {
-  title: "Sign In",
-};
+import Link from "next/link";
 
 const SignInPage = () => {
   const form = useForm<z.infer<typeof signInFormSchema>>({
@@ -43,9 +38,9 @@ const SignInPage = () => {
       });
       return;
     }
-  };
 
-  router.push("/");
+    router.push("/");
+  };
 
   return (
     <div className="relative w-full h-screen">

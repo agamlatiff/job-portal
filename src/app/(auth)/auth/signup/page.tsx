@@ -11,15 +11,10 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { signUpFormSchema } from "@/lib/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import type z from "zod";
-
-export const metadata: Metadata = {
-  title: "Sign Up",
-};
 
 const SignUpPage = () => {
   const { toast } = useToast();
