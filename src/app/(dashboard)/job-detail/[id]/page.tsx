@@ -4,8 +4,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Applicants from "@/components/layouts/Applicants";
 import JobDetail from "@/components/layouts/JobDetail";
 import type { FC } from "react";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import prisma from "../../../../../lib/prisma";
 
 type Params = {
@@ -24,8 +22,8 @@ async function getDetailJob(id: string) {
     include: {
       Applicant: {
         include: {
-          user: true
-        }
+          user: true,
+        },
       },
       CategoryJob: true,
     },
@@ -35,7 +33,6 @@ async function getDetailJob(id: string) {
 }
 
 const JobDetailPage: FC<JobDetailPageProps> = async ({ params }) => {
-  const session = await getServerSession(authOptions);
   const job = await getDetailJob(params.id);
 
   return (
@@ -65,7 +62,7 @@ const JobDetailPage: FC<JobDetailPageProps> = async ({ params }) => {
           <Applicants applicants={job?.Applicant} />
         </TabsContent>
         <TabsContent value="jobDetails">
-          <JobDetail />
+          <JobDetail detail={job} />
         </TabsContent>
       </Tabs>
     </div>
