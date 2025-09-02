@@ -32,16 +32,20 @@ import {
 } from "@/constants";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
-import { cn } from "@/lib/utils";
+import { cn, fetcher } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
 import InputSkills from "./InputSkills";
 import CKEditor from "./CKEditor";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
+import type { Industry } from "@prisma/client";
 
 const OverviewForm = () => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
+  const {data} = useSWR<Industry[]>('/api/company/industry', fetcher)
+  
   const form = useForm<z.infer<typeof overviewFormSchema>>({
     resolver: zodResolver(overviewFormSchema),
   });
@@ -121,9 +125,9 @@ const OverviewForm = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {LOCATION_OPTIONS.map((item: optionType, i: number) => (
-                          <SelectItem key={item.id + i} value={item.id}>
-                            {item.label}
+                        {data?.map((item: Industry) => (
+                          <SelectItem key={item.id} value={item.id}>
+                            {item.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
