@@ -38,16 +38,31 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
 import InputSkills from "./InputSkills";
 import CKEditor from "./CKEditor";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FC } from "react";
 import useSWR from "swr";
-import type { Industry } from "@prisma/client";
+import type { CompanyOverview, Industry } from "@prisma/client";
 
-const OverviewForm = () => {
+interface OverviewFormProps {
+  detail : CompanyOverview | undefined
+}
+
+const OverviewForm : FC<OverviewFormProps> = ({detail}) => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
   const {data} = useSWR<Industry[]>('/api/company/industry', fetcher)
   
   const form = useForm<z.infer<typeof overviewFormSchema>>({
     resolver: zodResolver(overviewFormSchema),
+    defaultValues: {
+      dateFounded: detail?.dateFounded,
+      description: detail?.description,
+      employee: detail?.employee,
+      image: detail?.image,
+      industry: detail?.industry,
+      location:detail?.location,
+      name: detail?.name,
+      techStack: detail?.techStack,
+      website: detail?.website
+    }
   });
 
   const onSubmit = (val: z.infer<typeof overviewFormSchema>) => {};
