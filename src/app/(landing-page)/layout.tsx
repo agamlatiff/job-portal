@@ -1,13 +1,8 @@
 import type { Metadata } from "next";
 import { Epilogue } from "next/font/google";
 import "../globals.css";
-import Sidebar from "@/components/dashboard/Sidebar";
-import Header from "@/components/dashboard/Header";
-import NextAuthProvider from "@/context/NextAuthProvider";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
-import { redirect } from "next/navigation";
-import { Toaster } from "@/components/ui/toaster";
+import Image from "next/image";
+import Navbar from "@/components/page/Navbar";
 
 const epilogue = Epilogue({ subsets: ["latin"] });
 
@@ -21,37 +16,16 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
-
-  if (session === null) {
-    return redirect("/auth/signin");
-  }
-
   return (
     <html lang="en">
-      <body className={epilogue.className}>
+      <body className={`${epilogue.className} relative overflow-x-hidden`}>
+        <Navbar/>
         <main>
-          <NextAuthProvider>
-            <div className="border-t">
-              <div className="bg-background">
-                <div className="flex flex-row">
-                  <div className="hidden lg:block w-[18%]">
-                    <Sidebar />
-                  </div>
-                  <div className="col-span-3 overflow-auto  lg:col-span-5 lg:border-l w-[82%]">
-                    <div className="px-6 py-6 lg:px-8">
-                      <div>
-                        <Header />
-                      </div>
-                      {children}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </NextAuthProvider>
-          <Toaster />
+          <div className="absolute w-2/3 h-screen top-0 right-0 -z-10">
+            <Image src={"/images/pattern.png"} alt="/images/pattern.png" />
+          </div>
         </main>
+        {children}
       </body>
     </html>
   );
