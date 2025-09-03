@@ -98,7 +98,7 @@ const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
         body: JSON.stringify(body),
       });
 
-      await toast({
+      toast({
         title: "Success",
         description: "Edit profile success",
       });
