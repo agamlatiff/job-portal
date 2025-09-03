@@ -1,3 +1,4 @@
+import BannerSignUp from '@/components/page/BannerSignUp'
 import Category from '@/components/page/Category'
 import Clients from '@/components/page/Clients'
 import Hero from '@/components/page/Hero'
@@ -8,7 +9,7 @@ const LandingPage = () => {
       <Hero/>
       <Clients/>
       <Category/>
-      
+      <BannerSignUp/>
     </div>
   )
 }
