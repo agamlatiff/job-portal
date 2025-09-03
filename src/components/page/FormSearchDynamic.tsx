@@ -17,14 +17,14 @@ const FormSearchDynamic = () => {
         <div className="inline-flex gap-3 items-center">
           <AiOutlineSearch className="size-6" />
           <Input
-            className="py-8 w-[300px] border-none"
+            className="py-5 w-[350px] border-none"
             placeholder="Job title or keyword"
           />
         </div>
         <div className="inline-flex gap-3 items-center">
           <IoLocationSharp className="size-6" />
           <Select>
-            <SelectTrigger className="w-[300px] text-gray-500 py-8 outline-none border-none">
+            <SelectTrigger className="w-[350px] text-gray-500 py-5 outline-none border-none">
               <SelectValue placeholder="Select a location" />
             </SelectTrigger>
             <SelectContent>
