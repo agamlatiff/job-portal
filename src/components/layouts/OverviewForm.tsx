@@ -41,15 +41,23 @@ import CKEditor from "./CKEditor";
 import { useEffect, useState, type FC } from "react";
 import useSWR from "swr";
 import type { CompanyOverview, Industry } from "@prisma/client";
+import { supabaseUploadFile } from "@/lib/supabase";
+import { useSession } from "next-auth/react";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 interface OverviewFormProps {
-  detail : CompanyOverview | undefined
+  detail: CompanyOverview | undefined;
 }
 
-const OverviewForm : FC<OverviewFormProps> = ({detail}) => {
+const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
-  const {data} = useSWR<Industry[]>('/api/company/industry', fetcher)
-  
+  const { data: session } = useSession();
+  const { data } = useSWR<Industry[]>("/api/company/industry", fetcher);
+
+  const { toast } = useToast();
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof overviewFormSchema>>({
     resolver: zodResolver(overviewFormSchema),
     defaultValues: {
@@ -58,14 +66,53 @@ const OverviewForm : FC<OverviewFormProps> = ({detail}) => {
       employee: detail?.employee,
       image: detail?.image,
       industry: detail?.industry,
-      location:detail?.location,
+      location: detail?.location,
       name: detail?.name,
       techStack: detail?.techStack,
-      website: detail?.website
-    }
+      website: detail?.website,
+    },
   });
 
-  const onSubmit = (val: z.infer<typeof overviewFormSchema>) => {};
+  const onSubmit = async (val: z.infer<typeof overviewFormSchema>) => {
+    try {
+      let filename = "";
+
+      if (typeof val.image === "object") {
+        const uploadImg = await supabaseUploadFile(val.image, "company");
+        filename = uploadImg.filename;
+      } else {
+        filename = val.image;
+      }
+
+      const body = {
+        ...val,
+        image: filename,
+        companyId: session?.user.id,
+      };
+
+      await fetch("/api/company/overview", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      await toast({
+        title: "Success",
+        description: "Edit profile success",
+      });
+
+      router.refresh();
+    } catch (error) {
+      await toast({
+        title: "Error",
+        description: "Please try again.",
+      });
+
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     setEditorLoaded(true);
