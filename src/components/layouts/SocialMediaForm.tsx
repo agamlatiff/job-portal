@@ -15,13 +15,61 @@ import {
 import FieldInput from "./FieldInput";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { useSession } from "next-auth/react";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import type { CompanySocialMedia } from "@prisma/client";
+import type { FC } from "react";
 
-const SocialMediaForm = () => {
+interface SocialMediaFormProps {
+  detail: CompanySocialMedia | undefined;
+}
+
+const SocialMediaForm: FC<SocialMediaFormProps> = ({ detail }) => {
   const form = useForm<z.infer<typeof socialMediaFormSchema>>({
     resolver: zodResolver(socialMediaFormSchema),
+    defaultValues: {
+      facebook: detail?.facebook,
+      instagram: detail?.instagram,
+      linkedin: detail?.linkedin,
+      twitter: detail?.twitter,
+      youtube: detail?.youtube,
+    },
   });
 
-  const onSubmit = (val: z.infer<typeof socialMediaFormSchema>) => {};
+  const { data: session } = useSession();
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const onSubmit = async (val: z.infer<typeof socialMediaFormSchema>) => {
+    try {
+      const body = {
+        ...val,
+        companyId: session?.user.id,
+      };
+
+      await fetch("/api/company/social-media", {
+        method: "POIST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      await router.refresh();
+      toast({
+        title: "Success",
+        description: " Edit Social Media success",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Please try again",
+      });
+
+      console.log(error);
+    }
+  };
 
   return (
     <Form {...form}>
@@ -122,12 +170,12 @@ const SocialMediaForm = () => {
             />
           </div>
         </FieldInput>
-        
+
         <div className="flex justify-end">
-          <Button size={'lg'}>Save Changes</Button>
-          
+          <Button size={"lg"}>Save Changes</Button>
         </div>
       </form>
+      q
     </Form>
   );
 };

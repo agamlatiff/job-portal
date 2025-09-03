@@ -7,25 +7,25 @@ import { getServerSession } from "next-auth";
 import React from "react";
 import prisma from "../../../../lib/prisma";
 
-async function getDetailCompany () {
-  const session = await getServerSession(authOptions)
-  
+async function getDetailCompany() {
+  const session = await getServerSession(authOptions);
+
   const company = await prisma.company.findFirst({
     where: {
-      id: session?.user.id
+      id: session?.user.id,
     },
     include: {
-      CompanyOverview: true
-    }
-  })
-  
-  return company
+      CompanyOverview: true,
+      CompanySocialMedia: true,
+    },
+  });
+
+  return company;
 }
 
 const SettingsPage = async () => {
-  
-  const company =  await getDetailCompany()
-  
+  const company = await getDetailCompany();
+
   return (
     <div>
       <div className="text-semibold text-3xl mb-5">Settings</div>
@@ -40,7 +40,7 @@ const SettingsPage = async () => {
           <OverviewForm detail={company?.CompanyOverview[0]} />
         </TabsContent>
         <TabsContent value="socialLinks">
-          <SocialMediaForm />
+          <SocialMediaForm detail={company?.CompanySocialMedia[0]} />
         </TabsContent>
         <TabsContent value="Teams">
           <TeamForm />
