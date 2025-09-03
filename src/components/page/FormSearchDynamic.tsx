@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Button } from "../ui/button";
+import { LOCATION_OPTIONS_PAGE, type optionType } from "@/constants";
 
 const FormSearchDynamic = () => {
   return (
@@ -28,9 +29,9 @@ const FormSearchDynamic = () => {
               <SelectValue placeholder="Select a location" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
+              {LOCATION_OPTIONS_PAGE.map((item: optionType, i: number) => (
+                <SelectItem value={item.id} key={i}>{item.label}</SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>

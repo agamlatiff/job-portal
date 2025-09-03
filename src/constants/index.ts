@@ -89,3 +89,22 @@ export const EMPLOYEE_OPTIONS: optionType[] = [
     label: "1000-above",
   },
 ];
+
+export const LOCATION_OPTIONS_PAGE: optionType[] = [
+  {
+    id: 'Indonesia',
+    label : 'Indonesia'
+  },
+    {
+    id: 'Malaysia',
+    label : 'Malaysia'
+  },
+    {
+    id: 'Singapura',
+    label : 'Singapura'
+  },
+    {
+    id: 'Thailand',
+    label : 'Thailand'
+  },
+]
