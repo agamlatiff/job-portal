@@ -1,4 +1,4 @@
-import ButtonActionTable from "@/components/layouts/ButtonActionTable";
+import ButtonActionTable from "@/components/dashboard/ButtonActionTable";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,

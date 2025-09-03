@@ -1,9 +1,9 @@
 "use client";
 
-import CKEditor from "@/components/layouts/CKEditor";
-import FieldInput from "@/components/layouts/FieldInput";
-import InputBenefits from "@/components/layouts/InputBenefits";
-import InputSkills from "@/components/layouts/InputSkills";
+import CKEditor from "@/components/dashboard/CKEditor";
+import FieldInput from "@/components/dashboard/FieldInput";
+import InputBenefits from "@/components/dashboard/InputBenefits";
+import InputSkills from "@/components/dashboard/InputSkills";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -36,7 +36,7 @@ import type z from "zod";
 import useSWR from "swr";
 import { fetcher } from "@/lib/utils";
 import type { CategoryJob } from "@prisma/client";
-import Applicants from "@/components/layouts/Applicants";
+import Applicants from "@/components/dashboard/Applicants";
 import { useSession } from "next-auth/react";
 import moment from "moment";
 import { useRouter } from "next/navigation";

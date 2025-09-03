@@ -1,7 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import OverviewForm from "@/components/layouts/OverviewForm";
-import SocialMediaForm from "@/components/layouts/SocialMediaForm";
-import TeamForm from "@/components/layouts/TeamForm";
+import OverviewForm from "@/components/dashboard/OverviewForm";
+import SocialMediaForm from "@/components/dashboard/SocialMediaForm";
+import TeamForm from "@/components/dashboard/TeamForm";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getServerSession } from "next-auth";
 import React from "react";
@@ -17,7 +17,7 @@ async function getDetailCompany() {
     include: {
       CompanyOverview: true,
       CompanySocialMedia: true,
-      CompanyTeam: true
+      CompanyTeam: true,
     },
   });
 

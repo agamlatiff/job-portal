@@ -1,8 +1,8 @@
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Applicants from "@/components/layouts/Applicants";
-import JobDetail from "@/components/layouts/JobDetail";
+import Applicants from "@/components/dashboard/Applicants";
+import JobDetail from "@/components/dashboard/JobDetail";
 import type { FC } from "react";
 import prisma from "../../../../../lib/prisma";
 
