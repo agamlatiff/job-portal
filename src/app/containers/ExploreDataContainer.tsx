@@ -1,3 +1,4 @@
+import FormSearchDynamic from "@/components/page/FormSearchDynamic";
 import Image from "next/image";
 import type { FC } from "react";
 
@@ -37,7 +38,7 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
           </div>
         </div>
         <div>
-          <div>Form Search</div>
+          <FormSearchDynamic/>
         </div>
       </div>
 
