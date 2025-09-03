@@ -1,4 +1,5 @@
 import Image from "next/image";
+import FormSearch from "./FormSearch";
 
 const Hero = () => {
   return (
@@ -25,6 +26,7 @@ const Hero = () => {
       <div className="block mt-2 ">
         <Image src={'/images/hero.png'} alt="/images/hero.png" width={501} height={710} objectFit="contain"/>
       </div>
+      <FormSearch/>
     </div>
   );
 };
