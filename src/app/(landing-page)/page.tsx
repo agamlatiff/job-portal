@@ -1,6 +1,7 @@
 import BannerSignUp from '@/components/page/BannerSignUp'
 import Category from '@/components/page/Category'
 import Clients from '@/components/page/Clients'
+import FeaturedJobs from '@/components/page/FeaturedJobs'
 import Hero from '@/components/page/Hero'
 
 const LandingPage = () => {
@@ -10,6 +11,7 @@ const LandingPage = () => {
       <Clients/>
       <Category/>
       <BannerSignUp/>
+      <FeaturedJobs/>
     </div>
   )
 }
