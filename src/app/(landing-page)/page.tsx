@@ -1,8 +1,11 @@
+import Hero from '@/components/page/Hero'
 import React from 'react'
 
 const LandingPage = () => {
   return (
-    <div>LandingPage</div>
+    <div className='px-32'>
+      <Hero/>
+    </div>
   )
 }
 
