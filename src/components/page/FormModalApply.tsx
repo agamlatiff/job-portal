@@ -18,6 +18,7 @@ import { Separator } from "../ui/separator";
 import { Form } from "../ui/form";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import UploadField from "./UploadField";
 
 const FormModalApply = () => {
   const form = useForm<z.infer<typeof formApplySchema>>({
@@ -165,7 +166,7 @@ const FormModalApply = () => {
 
             <FormField
               control={form.control}
-              name="linkedIn"
+              name="resume"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Additional Information</FormLabel>
@@ -179,6 +180,8 @@ const FormModalApply = () => {
                 </FormItem>
               )}
             />
+           
+           <UploadField form={form}/>
            
            <Button className="w-full">Submit Application</Button> 
             
