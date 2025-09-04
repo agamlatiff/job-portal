@@ -1,42 +1,13 @@
 import type { FC } from "react";
-import {
-  Form,
-} from "../ui/form";
+import { Form } from "../ui/form";
 import CheckboxForms from "./CheckboxForms";
-
+import type { filterFormType } from "@/app/types";
 
 interface FormFilterDynamicProps {
   formFilter: any;
   onSubmitFilter: (val: any) => Promise<void> | undefined;
-  filterForms: any[];
+  filterForms: filterFormType[];
 }
-
-const items = [
-  {
-    id: "recents",
-    label: "Recents",
-  },
-  {
-    id: "home",
-    label: "Home",
-  },
-  {
-    id: "applications",
-    label: "Applications",
-  },
-  {
-    id: "desktop",
-    label: "Desktop",
-  },
-  {
-    id: "downloads",
-    label: "Downloads",
-  },
-  {
-    id: "documents",
-    label: "Documents",
-  },
-] as const;
 
 const FormFilterDynamic: FC<FormFilterDynamicProps> = ({
   formFilter,
@@ -46,7 +17,15 @@ const FormFilterDynamic: FC<FormFilterDynamicProps> = ({
   return (
     <Form {...formFilter}>
       <form onSubmit={formFilter.handleSubmit(onSubmitFilter)}>
-        <CheckboxForms formFilter={formFilter} items={items} label="Categories" name="categories"/>
+        {filterForms.map((item: filterFormType, i: number) => (
+          <CheckboxForms
+            formFilter={formFilter}
+            items={item.items}
+            label={item.label}
+            name="categories"
+            key={i}
+          />
+        ))}
       </form>
     </Form>
   );

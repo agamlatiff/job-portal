@@ -92,19 +92,46 @@ export const EMPLOYEE_OPTIONS: optionType[] = [
 
 export const LOCATION_OPTIONS_PAGE: optionType[] = [
   {
-    id: 'Indonesia',
-    label : 'Indonesia'
+    id: "Indonesia",
+    label: "Indonesia",
   },
-    {
-    id: 'Malaysia',
-    label : 'Malaysia'
+  {
+    id: "Malaysia",
+    label: "Malaysia",
   },
-    {
-    id: 'Singapura',
-    label : 'Singapura'
+  {
+    id: "Singapura",
+    label: "Singapura",
   },
-    {
-    id: 'Thailand',
-    label : 'Thailand'
+  {
+    id: "Thailand",
+    label: "Thailand",
   },
-]
+];
+
+export const CATEGORIES_OPTIONS = [
+  {
+    id: "recents",
+    label: "Recents",
+  },
+  {
+    id: "home",
+    label: "Home",
+  },
+  {
+    id: "applications",
+    label: "Applications",
+  },
+  {
+    id: "desktop",
+    label: "Desktop",
+  },
+  {
+    id: "downloads",
+    label: "Downloads",
+  },
+  {
+    id: "documents",
+    label: "Documents",
+  },
+] as const;

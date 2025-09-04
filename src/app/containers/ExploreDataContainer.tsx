@@ -2,11 +2,12 @@ import FormFilterDynamic from "@/components/page/FormFilterDynamic";
 import FormSearchDynamic from "@/components/page/FormSearchDynamic";
 import Image from "next/image";
 import type { FC } from "react";
+import type { filterFormType } from "../types";
 
 interface ExploreDataContainerProps {
   formFilter: any;
   onSubmitFilter: (val: any) => Promise<void>;
-  filterForms: any;
+  filterForms: filterFormType[];
 }
 
 const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
@@ -45,7 +46,7 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
 
       <div className="mt-20 mb-16 px-32 flex flex-row items-start gap-10">
         <div className="w-1/5">
-        <FormFilterDynamic formFilter={formFilter} filterForms={[]} onSubmitFilter={onSubmitFilter}/>  
+        <FormFilterDynamic formFilter={formFilter} filterForms={filterForms} onSubmitFilter={onSubmitFilter}/>  
         </div>
         <div className="w-4/5">
           <div className="mb-5">
