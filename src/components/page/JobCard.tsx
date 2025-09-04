@@ -5,13 +5,13 @@ import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { Progress } from "../ui/progress";
+import { useRouter } from "next/navigation";
 
 interface JobCardProps extends JobType {}
 
 const JobCard: FC<JobCardProps> = ({
   applicants,
   categories,
-  desc,
   image,
   jobType,
   location,
@@ -19,6 +19,8 @@ const JobCard: FC<JobCardProps> = ({
   needs,
   type,
 }) => {
+  const router = useRouter();
+
   return (
     <div className="w-full border mb-5 p-6 border-border flex flex-row justify-between items-center">
       <div className="flex flex-row items-start gap-6">
@@ -39,10 +41,10 @@ const JobCard: FC<JobCardProps> = ({
           </div>
 
           <div className="w-[200px]">
-            <Button className="w-full" size={"lg"}>
+            <Button onClick={() => router.push('/detail/job/1')}  className="w-full" size={"lg"}>
               Apply
             </Button>
-            <Progress className="mt-2" value={applicants / needs * 100} />
+            <Progress className="mt-2" value={(applicants / needs) * 100} />
             <div className="text-gray-500 text-sm text-center mt-2">
               <span className="text-black  font-semibold">{applicants}</span> of{" "}
               {needs} capacity
