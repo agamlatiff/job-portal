@@ -3,6 +3,7 @@ import FormSearchDynamic from "@/components/page/FormSearchDynamic";
 import Image from "next/image";
 import type { FC } from "react";
 import type { filterFormType } from "../types";
+import JobCard from "@/components/page/JobCard";
 
 interface ExploreDataContainerProps {
   formFilter: any;
@@ -53,7 +54,9 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
             <div className="text-3xl font-semibold">All Jobs</div>
             <div className="text-muted-foreground">Showing 73 Result</div>
           </div>
-          <div>Job Card</div>
+          <div className="grid grid-cols-1 gap-7">
+            <JobCard applicants={5} categories={['Marketing', 'Design']} desc="lorem" image="/images/company2.png" jobType="Full-Time" location="Paris, France" name="Social Media Assistant" type="Agency" needs={10}/>
+          </div>
         </div>
       </div>
     </>
