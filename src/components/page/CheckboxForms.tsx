@@ -29,15 +29,15 @@ const CheckboxForms: FC<CheckboxFormsProps> = ({
   label,
 }) => {
   return (
-    <Accordion type="single" collapsible>
-      <AccordionItem value="item-1">
-        <AccordionTrigger>{label}</AccordionTrigger>
+    <Accordion type="single" collapsible defaultValue={name} className="border-none mt-0">
+      <AccordionItem value={name}>
+        <AccordionTrigger className="font-semibold first:pt-0">{label}</AccordionTrigger>
         <AccordionContent>
           <FormField
             control={formFilter?.control}
             name={name}
             render={() => (
-              <FormItem>
+              <FormItem className="space-y-5 text-gray-600 mt-5">
                 {items.map((item) => (
                   <FormField
                     key={item.id}

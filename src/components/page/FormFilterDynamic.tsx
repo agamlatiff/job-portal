@@ -2,6 +2,7 @@ import type { FC } from "react";
 import { Form } from "../ui/form";
 import CheckboxForms from "./CheckboxForms";
 import type { filterFormType } from "@/app/types";
+import { Button } from "../ui/button";
 
 interface FormFilterDynamicProps {
   formFilter: any;
@@ -26,6 +27,8 @@ const FormFilterDynamic: FC<FormFilterDynamicProps> = ({
             key={i}
           />
         ))}
+        <Button className="mt-5 w-full">Apply Filter</Button>
+        <Button className="mt-3 w-full" variant={'outline'}>Reset Filter</Button>
       </form>
     </Form>
   );

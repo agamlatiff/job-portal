@@ -15,6 +15,9 @@ const FILTER_FORMS: filterFormType[] = [
 const FindJobsPage = () => {
   const formFIlter = useForm<z.infer<typeof formFilterSchema>>({
     resolver: zodResolver(formFilterSchema),
+    defaultValues: {
+      categories: [],
+    },
   });
 
   const onSubmitFormFilter = async (val: z.infer<typeof formFilterSchema>) => {
@@ -23,7 +26,7 @@ const FindJobsPage = () => {
 
   return (
     <ExploreDataContainer
-    filterForms={FILTER_FORMS}
+      filterForms={FILTER_FORMS}
       formFilter={formFIlter}
       onSubmitFilter={onSubmitFormFilter}
     />
