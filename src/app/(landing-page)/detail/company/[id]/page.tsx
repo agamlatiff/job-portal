@@ -1,10 +1,18 @@
+import LatestJobs from "@/components/page/LatestJobs";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { FacebookIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { type FC } from "react";
 import { AiOutlineFire } from "react-icons/ai";
-import { BsFacebook, BsLinkedin, BsPeople, BsTwitter } from "react-icons/bs";
+import {
+  BsFacebook,
+  BsInstagram,
+  BsLinkedin,
+  BsPeople,
+  BsTwitter,
+} from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { HiOutlineBuildingOffice } from "react-icons/hi2";
 
@@ -12,142 +20,176 @@ interface DetailCompanyPageProps {}
 
 const DetailCompanyPage: FC<DetailCompanyPageProps> = () => {
   return (
-    <div>
-      <div className="bg-slate-100 px-32 pt-16 pb-14">
-        <div className="inline-flex gap-3 text-sm text-muted-foreground">
-          <Link href={"/"} className="hover:underline hover:text-black">
-            Home
-          </Link>{" "}
-          /{" "}
-          <Link
-            href={"/find-companies"}
-            className="hover:underline hover:text-black"
-          >
-            Companies
-          </Link>{" "}
-          /{" "}
-          <Link
-            href={"/detail-company/1"}
-            className="hover:underline hover:text-black"
-          >
-            Twitter
-          </Link>
-        </div>
-
-        <div>
-          <div className="mt-10 inlinef-lex gap-6 items-start">
-            <Image
-              src={"/images/company2.png"}
-              alt="company"
-              width={150}
-              height={150}
-            />
-            <div>
-              <div className="inline-flex gap-4 items-center">
-                <span className="text-4xl font-semibold">Twitter</span>
-                <Badge>10 Jobs</Badge>
-              </div>
-              <div className="mt-2">
-                <Link href={"/"} className="font-semibold text-primary">
-                  https://twitter.com
-                </Link>
-              </div>
-              <div className="inline-flex items-center gap-10 mt-6">
-                <div className="inline-flex items-center gap-3">
-                  <div>
-                    <div className="bg-white p-3 rounded-full">
-                      <AiOutlineFire className="size-6 text-primary" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-gray-500">Founded</div>
-                    <div className="font-semibold">March, 06 2023</div>
-                  </div>
-                </div>
-
-                <div className="inline-flex items-center gap-3">
-                  <div>
-                    <div className="bg-white p-3 rounded-full">
-                      <BsPeople className="size-6 text-primary" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-gray-500">Employees</div>
-                    <div className="font-semibold">151-250</div>
-                  </div>
-                </div>
-
-                <div className="inline-flex items-center gap-3">
-                  <div>
-                    <div className="bg-white p-3 rounded-full">
-                      <HiOutlineLocationMarker className="size-6 text-primary" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-gray-500">Location</div>
-                    <div className="font-semibold">Indonesia</div>
-                  </div>
-                </div>
-
-                <div className="inline-flex items-center gap-3">
-                  <div>
-                    <div className="bg-white p-3 rounded-full">
-                      <HiOutlineBuildingOffice className="size-6 text-primary" />
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-gray-500">Industry</div>
-                    <div className="font-semibold">Advertising</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <>
+      <div>
+        <div className="bg-slate-100 px-32 pt-16 pb-14">
+          <div className="inline-flex gap-3 text-sm text-muted-foreground">
+            <Link href={"/"} className="hover:underline hover:text-black">
+              Home
+            </Link>{" "}
+            /{" "}
+            <Link
+              href={"/find-companies"}
+              className="hover:underline hover:text-black"
+            >
+              Companies
+            </Link>{" "}
+            /{" "}
+            <Link
+              href={"/detail-company/1"}
+              className="hover:underline hover:text-black"
+            >
+              Twitter
+            </Link>
           </div>
-        </div>
-      </div>
 
-      <div className="px-32 py-16 flex flex-row items-start gap-10">
-        <div className="w-3/4">
-          <div className="mb-16">
-            <div className="text-3xl font-semibold">Company Profile</div>
-            <div className="text-muted-foreground">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-              rem omnis laboriosam repellendus alias fuga, voluptate amet
-              eligendi officiis officia ipsa optio, incidunt nulla cupiditate
-              voluptatum reprehenderit maiores! Numquam, optio?
-            </div>
-          </div>
           <div>
-            <div className="text-3xl font-semibold mb-4">Contact</div>
-            <div className="flex items-center gap-5 w-[400px] flex-wrap">
-              <div className="p-2 border border-primary text-primary w-max inline-flex items-center gap-3 font-semibold">
-                <BsFacebook />
-                <span className="text-sm">https://facebook.com/twitter</span>
-              </div>
+            <div className="mt-10 inlinef-lex gap-6 items-start">
+              <Image
+                src={"/images/company2.png"}
+                alt="company"
+                width={150}
+                height={150}
+              />
+              <div>
+                <div className="inline-flex gap-4 items-center">
+                  <span className="text-4xl font-semibold">Twitter</span>
+                  <Badge>10 Jobs</Badge>
+                </div>
+                <div className="mt-2">
+                  <Link href={"/"} className="font-semibold text-primary">
+                    https://twitter.com
+                  </Link>
+                </div>
+                <div className="inline-flex items-center gap-10 mt-6">
+                  <div className="inline-flex items-center gap-3">
+                    <div>
+                      <div className="bg-white p-3 rounded-full">
+                        <AiOutlineFire className="size-6 text-primary" />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-gray-500">Founded</div>
+                      <div className="font-semibold">March, 06 2023</div>
+                    </div>
+                  </div>
 
-              <div className="p-2 border border-primary text-primary w-max inline-flex items-center gap-3 font-semibold">
-                <BsTwitter />
-                <span className="text-sm">https://twitter.com/twitter</span>
-              </div>
+                  <div className="inline-flex items-center gap-3">
+                    <div>
+                      <div className="bg-white p-3 rounded-full">
+                        <BsPeople className="size-6 text-primary" />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-gray-500">Employees</div>
+                      <div className="font-semibold">151-250</div>
+                    </div>
+                  </div>
 
-              <div className="p-2 border border-primary text-primary w-max inline-flex items-center gap-3 font-semibold">
-                <BsLinkedin />
-                <span className="text-sm">https://linkedin.com/twitter</span>
+                  <div className="inline-flex items-center gap-3">
+                    <div>
+                      <div className="bg-white p-3 rounded-full">
+                        <HiOutlineLocationMarker className="size-6 text-primary" />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-gray-500">Location</div>
+                      <div className="font-semibold">Indonesia</div>
+                    </div>
+                  </div>
+
+                  <div className="inline-flex items-center gap-3">
+                    <div>
+                      <div className="bg-white p-3 rounded-full">
+                        <HiOutlineBuildingOffice className="size-6 text-primary" />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-gray-500">Industry</div>
+                      <div className="font-semibold">Advertising</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="w-1/4">
-          <div className="text-3xl font-semibold mb-4">Tech Stack</div>
-          <div className="text-gray-500 text-sm">Learn about the technology and tools that Pattern uses.</div>
-          <div className="mt-5 inline-flex gap-4">
-            <Badge>Javascript</Badge>
-            <Badge>HTML</Badge>
+        <div className="px-32 py-16 flex flex-row items-start gap-10">
+          <div className="w-3/4">
+            <div className="mb-16">
+              <div className="text-3xl font-semibold">Company Profile</div>
+              <div className="text-muted-foreground">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
+                rem omnis laboriosam repellendus alias fuga, voluptate amet
+                eligendi officiis officia ipsa optio, incidunt nulla cupiditate
+                voluptatum reprehenderit maiores! Numquam, optio?
+              </div>
+            </div>
+            <div>
+              <div className="text-3xl font-semibold mb-4">Contact</div>
+              <div className="flex items-center gap-5 w-[400px] flex-wrap">
+                <div className="p-2 border border-primary text-primary w-max inline-flex items-center gap-3 font-semibold">
+                  <BsFacebook />
+                  <span className="text-sm">https://facebook.com/twitter</span>
+                </div>
+
+                <div className="p-2 border border-primary text-primary w-max inline-flex items-center gap-3 font-semibold">
+                  <BsTwitter />
+                  <span className="text-sm">https://twitter.com/twitter</span>
+                </div>
+
+                <div className="p-2 border border-primary text-primary w-max inline-flex items-center gap-3 font-semibold">
+                  <BsLinkedin />
+                  <span className="text-sm">https://linkedin.com/twitter</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-1/4">
+            <div className="text-3xl font-semibold mb-4">Tech Stack</div>
+            <div className="text-gray-500 text-sm">
+              Learn about the technology and tools that Pattern uses.
+            </div>
+            <div className="mt-5 inline-flex gap-4">
+              <Badge>Javascript</Badge>
+              <Badge>HTML</Badge>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      <div className="px-32">
+        <Separator />
+        <div className="my-16">
+          <div className="text-3xl font-semibold mb-4">Teams</div>
+          <div className="grid grid-cols-5 gap-5 mt-5">
+            {[0, 1, 2, 3, 4].map((item: number) => (
+              <div key={item} className="border border-border px-3 py-5">
+                <div className="size-16 rounded-full mx-auto bg-gray-300"></div>
+                <div className="text-center my-4">
+                  <div className="font-semibold text-sm">Agam</div>
+                  <div className="text-gray-500 text-xs">CEO & CO-Founder</div>
+                </div>
+
+                <div className="mx-auto w-max">
+                  <div className="inline-flex gap-2">
+                    <BsInstagram className="size-4 text-gray-500" />
+                    <BsLinkedin className="size-4 text-gray-500" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <Separator />
+      </div>
+
+      <div className="px-32 mt-16">
+        <LatestJobs/>
+      </div>
+    </>
   );
 };
 
