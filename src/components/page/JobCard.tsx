@@ -4,6 +4,7 @@ import type { FC } from "react";
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
+import { Progress } from "../ui/progress";
 
 interface JobCardProps extends JobType {}
 
@@ -41,9 +42,7 @@ const JobCard: FC<JobCardProps> = ({
             <Button className="w-full" size={"lg"}>
               Apply
             </Button>
-            <div className="w-full h-2 mt-2 relative bg-gray-300">
-              <div className="w-full absolute h-2 bg-gray-500"></div>
-            </div>
+            <Progress className="mt-2" value={applicants / needs * 100} />
             <div className="text-gray-500 text-sm text-center mt-2">
               <span className="text-black  font-semibold">{applicants}</span> of{" "}
               {needs} capacity
