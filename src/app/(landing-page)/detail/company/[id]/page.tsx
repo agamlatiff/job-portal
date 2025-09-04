@@ -1,8 +1,12 @@
 import { Badge } from "@/components/ui/badge";
+import { FacebookIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { type FC } from "react";
 import { AiOutlineFire } from "react-icons/ai";
+import { BsFacebook, BsLinkedin, BsPeople, BsTwitter } from "react-icons/bs";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { HiOutlineBuildingOffice } from "react-icons/hi2";
 
 interface DetailCompanyPageProps {}
 
@@ -64,40 +68,82 @@ const DetailCompanyPage: FC<DetailCompanyPageProps> = () => {
                 <div className="inline-flex items-center gap-3">
                   <div>
                     <div className="bg-white p-3 rounded-full">
-                      <AiOutlineFire className="size-6 text-primary" />
+                      <BsPeople className="size-6 text-primary" />
                     </div>
                   </div>
                   <div>
-                    <div className="text-gray-500">Founded</div>
-                    <div className="font-semibold">March, 06 2023</div>
+                    <div className="text-gray-500">Employees</div>
+                    <div className="font-semibold">151-250</div>
                   </div>
                 </div>
 
                 <div className="inline-flex items-center gap-3">
                   <div>
                     <div className="bg-white p-3 rounded-full">
-                      <AiOutlineFire className="size-6 text-primary" />
+                      <HiOutlineLocationMarker className="size-6 text-primary" />
                     </div>
                   </div>
                   <div>
-                    <div className="text-gray-500">Founded</div>
-                    <div className="font-semibold">March, 06 2023</div>
+                    <div className="text-gray-500">Location</div>
+                    <div className="font-semibold">Indonesia</div>
                   </div>
                 </div>
 
                 <div className="inline-flex items-center gap-3">
                   <div>
                     <div className="bg-white p-3 rounded-full">
-                      <AiOutlineFire className="size-6 text-primary" />
+                      <HiOutlineBuildingOffice className="size-6 text-primary" />
                     </div>
                   </div>
                   <div>
-                    <div className="text-gray-500">Founded</div>
-                    <div className="font-semibold">March, 06 2023</div>
+                    <div className="text-gray-500">Industry</div>
+                    <div className="font-semibold">Advertising</div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="px-32 py-16 flex flex-row items-start gap-10">
+        <div className="w-3/4">
+          <div className="mb-16">
+            <div className="text-3xl font-semibold">Company Profile</div>
+            <div className="text-muted-foreground">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
+              rem omnis laboriosam repellendus alias fuga, voluptate amet
+              eligendi officiis officia ipsa optio, incidunt nulla cupiditate
+              voluptatum reprehenderit maiores! Numquam, optio?
+            </div>
+          </div>
+          <div>
+            <div className="text-3xl font-semibold mb-4">Contact</div>
+            <div className="flex items-center gap-5 w-[400px] flex-wrap">
+              <div className="p-2 border border-primary text-primary w-max inline-flex items-center gap-3 font-semibold">
+                <BsFacebook />
+                <span className="text-sm">https://facebook.com/twitter</span>
+              </div>
+
+              <div className="p-2 border border-primary text-primary w-max inline-flex items-center gap-3 font-semibold">
+                <BsTwitter />
+                <span className="text-sm">https://twitter.com/twitter</span>
+              </div>
+
+              <div className="p-2 border border-primary text-primary w-max inline-flex items-center gap-3 font-semibold">
+                <BsLinkedin />
+                <span className="text-sm">https://linkedin.com/twitter</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-1/4">
+          <div className="text-3xl font-semibold mb-4">Tech Stack</div>
+          <div className="text-gray-500 text-sm">Learn about the technology and tools that Pattern uses.</div>
+          <div className="mt-5 inline-flex gap-4">
+            <Badge>Javascript</Badge>
+            <Badge>HTML</Badge>
           </div>
         </div>
       </div>
