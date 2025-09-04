@@ -1,8 +1,11 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { BiCategory } from "react-icons/bi";
 
 interface DetailJobPageProps {}
 
@@ -134,6 +137,51 @@ const DetailJobPage = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        <Separator className="my-10" />
+
+        <div>
+          <div className="text-3xl font-semibold">Category</div>
+          <div className="my-10 inline-flex gap-4">
+            <Badge>Marketing</Badge>
+          </div>
+        </div>
+
+        <Separator className="my-10" />
+
+        <div>
+          <div className="text-3xl font-semibold">Required Skills</div>
+          <div className="my-10 inline-flex gap-4">
+            {[0, 1, 2].map((item: number) => (
+              <Badge key={item} variant={"outline"}>
+                Marketing
+              </Badge>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="px-32 pb-16">
+        <Separator className="mb-14" />
+        <div className="mb-6">
+          <div className="font-semibold text-3xl">Perks & Benefits</div>
+          <div className="text-gray-500 mt-1">
+            This job comes with several perks and benefits
+          </div>
+        </div>
+
+        <div className="grid grid-cols-5 gap-5">
+          {[0, 1, 2].map((item: number) => (
+            <div key={item}>
+              <BiCategory className="size-12 text-primary " />
+              <div className="font-semibold text-xl mt-6">Full Healtcare</div>
+              <div className="mt-3 text-sm text-gray-500">
+                We believe in thriving communities and that starts wth our team
+                being happy and healthy.
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </>
