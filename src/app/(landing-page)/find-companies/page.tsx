@@ -24,6 +24,20 @@ const dataDummy: CompanyType[] = [
     name: "Twitter",
     totalJobs: 20,
   },
+  {
+    image: "/images/company2.png",
+    categories: "Marketing",
+    description: "Lorem",
+    name: "Twitter",
+    totalJobs: 20,
+  },
+  {
+    image: "/images/company2.png",
+    categories: "Marketing",
+    description: "Lorem",
+    name: "Twitter",
+    totalJobs: 20,
+  },
 ];
 
 const FindCompaniesPage = () => {

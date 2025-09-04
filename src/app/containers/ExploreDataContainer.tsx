@@ -13,8 +13,8 @@ interface ExploreDataContainerProps {
   loading: boolean;
   title: string;
   subtitle: string;
-  data: any[]
-  type: 'job' | 'company'
+  data: any[];
+  type: "job" | "company";
 }
 
 const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
@@ -24,7 +24,8 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
   loading,
   subtitle,
   title,
-  type,data
+  type,
+  data,
 }) => {
   return (
     <>
@@ -63,28 +64,32 @@ const ExploreDataContainer: FC<ExploreDataContainerProps> = ({
         </div>
         <div className="w-4/5">
           <div className="mb-5">
-            <div className="text-3xl font-semibold">All {type === 'job' ? 'Jobs' : 'Companies'}</div>
-            <div className="text-muted-foreground">Showing {data.length} Result</div>
+            <div className="text-3xl font-semibold">
+              All {type === "job" ? "Jobs" : "Companies"}
+            </div>
+            <div className="text-muted-foreground">
+              Showing {data.length} Result
+            </div>
           </div>
-          <div className="grid grid-cols-1 gap-7">
+          <div className="">
             {loading ? (
               <div>Loading...</div>
             ) : (
-             <>
-            {type === 'job' ? (
               <>
-              {data?.map((item: any , i: number) => (
-                 <JobCard
-               key={i} {...item}
-              />
-              ))}
+                {type === "job" ? (
+                  <div className="grid grid-cols-1 gap-7">
+                    {data?.map((item: any, i: number) => (
+                      <JobCard key={i} {...item} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-3 gap-5">
+                    {data?.map((item: any, i: number) => (
+                      <CompanyCard {...item} key={i} />
+                    ))}
+                  </div>
+                )}
               </>
-            ) : ( <>
-            {data?.map((item: any, i: number) => (
-              <CompanyCard {...item} key={i}/>
-            ))}
-            </>)}
-             </>
             )}
           </div>
         </div>
