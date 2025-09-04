@@ -17,6 +17,7 @@ import Image from "next/image";
 import { Separator } from "../ui/separator";
 import { Form } from "../ui/form";
 import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 
 const FormModalApply = () => {
   const form = useForm<z.infer<typeof formApplySchema>>({
@@ -75,14 +76,113 @@ const FormModalApply = () => {
                     <FormControl>
                       <Input placeholder="Enter your fullname" {...field} />
                     </FormControl>
-                    <FormDescription>
-                      This is your public display name.
-                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone number</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter your phone number" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="previousJobTitle"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Current of previous job title</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="What's your current or previous job"
+                        {...field}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
+
+            <Separator />
+            <h2 className="font-semibold">LINKS</h2>
+
+            <div className="grid grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="linkedIn"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>LinkedIn URL</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Link to your linked URL" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="portfolio"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Portfolio URL</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Link to your portfolio URL"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <FormField
+              control={form.control}
+              name="linkedIn"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Additional Information</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Add a cover letter or anything else you want to share"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+           
+           <Button className="w-full">Submit Application</Button> 
+            
+            <div></div>
           </form>
         </Form>
       </DialogContent>
