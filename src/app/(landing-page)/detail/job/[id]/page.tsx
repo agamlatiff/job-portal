@@ -1,3 +1,4 @@
+import FormModalApply from "@/components/page/FormModalApply";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -54,9 +55,7 @@ const DetailJobPage = () => {
               Agency . Paris France . Full-Time
             </div>
           </div>
-          <Button size={"lg"} className="text-lg px-12 py-6">
-            Apply
-          </Button>
+  <FormModalApply/>
         </div>
       </div>
 
