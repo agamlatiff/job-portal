@@ -134,4 +134,4 @@ export const CATEGORIES_OPTIONS = [
     id: "documents",
     label: "Documents",
   },
-] as const;
+]
