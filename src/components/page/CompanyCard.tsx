@@ -2,25 +2,36 @@ import Image from "next/image";
 import type { FC } from "react";
 import { Badge } from "../ui/badge";
 import type { CompanyType } from "@/app/types";
+import { useRouter } from "next/navigation";
 
-interface CompanyCardProps extends CompanyType{
+interface CompanyCardProps extends CompanyType {}
+
+const CompanyCard: FC<CompanyCardProps> = ({
+  categories,
+  description,
+  image,
+  name,
+  totalJobs,
+}) => {
+  const router = useRouter()
   
-}
-
-const CompanyCard : FC<CompanyCardProps> = ({categories, description,image, name, totalJobs}) => {
-  return <div className="border border-border  p-6">
-    <div className="flex flex-row  justify-between items-start">
-      <Image src={image} alt={name} width={66} height={66} />
-      <Badge>{totalJobs} Jobs</Badge>
+  return (
+    <div onClick={() => router.push('/detail/company/1')} className="border border-border p-6 cursor-pointer">
+      <div className="flex flex-row  justify-between items-start">
+        <Image src={image} alt={name} width={66} height={66} />
+        <Badge>{totalJobs} Jobs</Badge>
+      </div>
+      <div className="my-4">
+        <div className="text-lg font-semibold mb-2">{name}</div>
+        <div className="line-clamp-3 text-sm text-muted-foreground">
+          {description}
+        </div>
+      </div>
+      <div className="space-x-2">
+        <Badge variant={"outline"}>{categories}</Badge>
+      </div>
     </div>
-    <div className="my-4">
-      <div className="text-lg font-semibold mb-2">{name}</div>
-      <div className="line-clamp-3 text-sm text-muted-foreground">{description}</div>
-    </div>
-    <div className="space-x-2">
-      <Badge variant={'outline'}>{categories}</Badge>
-    </div>
-  </div>;
+  );
 };
 
 export default CompanyCard;
