@@ -6,8 +6,8 @@ export type JobType = {
   location: string;
   desc: string;
   categories: string[];
-  needs: number
-  applicants: number
+  needs: number;
+  applicants: number;
 };
 
 export type optionType = {
@@ -21,4 +21,10 @@ export type filterFormType = {
   items: optionType[];
 };
 
-
+export type CompanyType = {
+  image: string;
+  totalJobs: number;
+  name: string;
+  description: string;
+  categories: string;
+};
