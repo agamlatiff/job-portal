@@ -15,14 +15,40 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { formSignUpSchema } from "@/lib/form-schema";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 const SignUpPage = () => {
   const form = useForm<z.infer<typeof formSignUpSchema>>({
     resolver: zodResolver(formSignUpSchema),
   });
 
-  const onSubmit = (val: z.infer<typeof formSignUpSchema>) => {
-    console.log(val);
+  const router = useRouter();
+
+  const { toast } = useToast();
+
+  const onSubmit = async (val: z.infer<typeof formSignUpSchema>) => {
+    try {
+      await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(val),
+      });
+
+      toast({
+        title: "Success",
+        description: "Create account success",
+      });
+
+      router.push("/signin");
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Please try again",
+      });
+    }
   };
 
   return (
