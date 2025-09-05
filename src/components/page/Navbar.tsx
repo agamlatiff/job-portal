@@ -1,8 +1,12 @@
+'use client'
 import Image from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
+
   return (
     <header className="px-32 py-5 flex flex-row items-start justify-between">
       <div className="inline-flex items-center gap-12">
@@ -26,7 +30,7 @@ const Navbar = () => {
       </div>
 
       <div className="inline-flex items-center gap-4 h-8">
-        <Button variant={"link"}>Login</Button>
+        <Button onClick={() => router.push('/auth/signin')} variant={"link"}>Login</Button>
         <Button>Sign Up</Button>
       </div>
     </header>
