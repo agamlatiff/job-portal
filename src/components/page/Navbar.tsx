@@ -1,11 +1,15 @@
-'use client'
+"use client";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import MenuAuth from "./MenuAuth";
 
 const Navbar = () => {
   const router = useRouter();
+
+  const { data: session } = useSession();
 
   return (
     <header className="px-32 py-5 flex flex-row items-start justify-between">
@@ -30,8 +34,19 @@ const Navbar = () => {
       </div>
 
       <div className="inline-flex items-center gap-4 h-8">
-        <Button onClick={() => router.push('/auth/signin')} variant={"link"}>Login</Button>
-        <Button>Sign Up</Button>
+        {session ? (
+         <MenuAuth />
+        ) : (
+          <>
+            <Button
+              onClick={() => router.push("/auth/signin")}
+              variant={"link"}
+            >
+              Login
+            </Button>
+            <Button>Sign Up</Button>
+          </>
+        )}
       </div>
     </header>
   );
