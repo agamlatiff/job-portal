@@ -13,10 +13,19 @@ export const formApplySchema = z.object({
   fullname: z
     .string({ message: "Fullname is required" })
     .min(5, { message: "Full name minimal 5 characters" }),
-    email: z.string({message: 'Email is required'}).email({message: 'Email not valid'}),
-    phone: z.string().min(6, {message:'Phone have min 6 characters'}),
-    previousJobTitle : z.string(), 
-    linkedIn : z.string(), 
-    portfolio : z.string(), 
-    coverLetter : z.string(), 
+  email: z
+    .string({ message: "Email is required" })
+    .email({ message: "Email not valid" }),
+  phone: z.string().min(6, { message: "Phone have min 6 characters" }),
+  previousJobTitle: z.string(),
+  linkedIn: z.string(),
+  portfolio: z.string(),
+  coverLetter: z.string(),
+});
+
+export const formSignInSchema = z.object({
+  email: z
+    .string({ message: "Email is required" })
+    .email({ message: "Email is not valid" }),
+  password: z.string({ message: "Password is required" }),
 });
