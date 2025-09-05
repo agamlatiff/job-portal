@@ -83,3 +83,9 @@ export const supabaseUpdateFile = async (
       data, error
     }
 };
+
+export const supabasePublicUrl = async (filename: string, bucket : string) => {
+  const {data: {publicUrl}} = await supabaseClient.storage.from(bucket).getPublicUrl(`public/${filename}`)
+  
+  return publicUrl
+}
