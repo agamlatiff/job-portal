@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const SignInPage = () => {
   const form = useForm<z.infer<typeof formSignInSchema>>({
@@ -59,6 +60,11 @@ const SignInPage = () => {
             )}
           />
           <Button type="submit" className="w-full">Sign In</Button>
+          
+          <div className="text-gray-500 text-sm mt-6">
+            Don&apos;t have an account {' '}
+            <Link href={'/signup'} className="text-primary font-medium">Sign Up</Link>
+          </div>
         </form>
       </Form>
     </div>

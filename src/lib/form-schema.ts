@@ -29,3 +29,13 @@ export const formSignInSchema = z.object({
     .email({ message: "Email is not valid" }),
   password: z.string({ message: "Password is required" }),
 });
+
+export const formSignUpSchema = z.object({
+  email: z
+    .string({ message: "Email is required" })
+    .email({ message: "Email is not valid" }),
+  password: z.string({ message: "Password is required" }),
+  name: z
+    .string({ message: "Name is required" })
+    .min(3, { message: "Name should have minimal 3 characters" }),
+});
