@@ -98,15 +98,55 @@ export const parsingJobs = async (
 export const parsingCategoriesToOptions = (
   data: any,
   isLoading: boolean,
-  error: any
+  error: any,
+  isIndustry?: boolean
 ) => {
   if (!isLoading && !error && data) {
     return data.map((item: any) => {
       return {
-        id: item.id,
+        id: isIndustry ? item.name : item.id,
         label: item.name,
       };
     }) as optionType[];
+  }
+
+  return [];
+};
+
+export const parsingCompanies = async (
+  data: any,
+  isLoading: boolean,
+  error: any
+) => {
+  if (!isLoading && !error && data) {
+    return await Promise.all(
+      data.map(async (item: any) => {
+        let imageName = item.Company?.CompanyOverview[0]?.image;
+        let imageUrl;
+
+        if (imageName) {
+          imageUrl = await supabasePublicUrl(imageName, "company");
+        } else {
+          imageUrl = "/images/company/png";
+        }
+
+        const job: JobType = {
+          id: item.id,
+          name: item.roles,
+          applicants: item.applicants,
+          category: item.CategoryJob,
+          desc: item.description,
+          jobType: item.jobType,
+          image: imageUrl,
+          location: item.Company?.CompanyOverview[0]?.location,
+          needs: item.needs,
+          type: item.CategoryJob.name,
+          skills: item.requiredSkills,
+        };
+
+        return job;
+      })
+    );
   }
 
   return [];

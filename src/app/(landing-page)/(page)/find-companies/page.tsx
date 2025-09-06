@@ -3,6 +3,7 @@
 import ExploreDataContainer from "@/app/containers/ExploreDataContainer";
 import type { CompanyType, filterFormType } from "@/app/types";
 import { CATEGORIES_OPTIONS } from "@/constants";
+import useCategoryCompanyFilter from "@/hooks/useCategoryCompanyFilter";
 import { formFilterCompanySchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -48,6 +49,8 @@ const FindCompaniesPage = () => {
     },
   });
 
+  const { filters } = useCategoryCompanyFilter();
+
   const onSubmit = async (val: z.infer<typeof formFilterCompanySchema>) => {
     console.log(val);
   };
@@ -56,7 +59,7 @@ const FindCompaniesPage = () => {
     <ExploreDataContainer
       formFilter={formFilter}
       onSubmitFilter={onSubmit}
-      filterForms={FILTER_FORMS}
+      filterForms={filters}
       title="dream companies"
       loading={false}
       subtitle="Find the dreams companies you dream work for"
