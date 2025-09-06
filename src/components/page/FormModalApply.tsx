@@ -19,8 +19,23 @@ import { Form } from "../ui/form";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import UploadField from "./UploadField";
+import { useSession } from "next-auth/react";
+import { string } from "zod";
+import type { FC } from "react";
 
-const FormModalApply = () => {
+interface FormModalApplyProps {
+  image: string | undefined;
+  roles: string | undefined;
+  location: string | undefined;
+  jobType: string | undefined;
+}
+
+const FormModalApply: FC<FormModalApplyProps> = ({
+  image,
+  roles,
+  location,
+  jobType,
+}) => {
   const form = useForm<z.infer<typeof formApplySchema>>({
     resolver: zodResolver(formApplySchema),
   });
@@ -29,20 +44,33 @@ const FormModalApply = () => {
     console.log(val);
   };
 
+  const { data: session } = useSession();
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size={"lg"} className="text-lg px-12 py-6">
-          Apply
-        </Button>
+        {session ? (
+          <Button size={"lg"} className="text-lg px-12 py-6">
+            Apply
+          </Button>
+        ) : (
+          <Button
+            size={"lg"}
+            variant={"outline"}
+            disabled
+            className="text-lg px-12 py-6"
+          >
+            Sign In First
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px]">
         <div>
           <div className="inline-flex items-center gap-4">
             <div>
               <Image
-                src={"/images/company2.png"}
-                alt="company"
+                src={image!!}
+                alt="image"
                 width={60}
                 height={60}
               />
@@ -50,10 +78,10 @@ const FormModalApply = () => {
 
             <div>
               <div className="text-lg font-semibold">
-                Social Media Assistant
+                {roles}
               </div>
               <div className="text-gray-500">
-                Agency . Paris, France . Full-Time
+               {location} . {jobType}
               </div>
             </div>
           </div>
@@ -180,11 +208,11 @@ const FormModalApply = () => {
                 </FormItem>
               )}
             />
-           
-           <UploadField form={form}/>
-           
-           <Button className="w-full">Submit Application</Button> 
-            
+
+            <UploadField form={form} />
+
+            <Button className="w-full">Submit Application</Button>
+
             <div></div>
           </form>
         </Form>

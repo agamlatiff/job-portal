@@ -27,9 +27,9 @@ async function getDetailJob(id: string) {
       CategoryJob: true,
     },
   });
-  
-  const applicants =  data?.applicants || 0
-  const needs = data?.needs || 0
+
+  const applicants = data?.applicants || 0;
+  const needs = data?.needs || 0;
 
   let imageUrl;
 
@@ -87,7 +87,12 @@ const DetailJobPage = async ({ params }: { params: { id: string } }) => {
               {data?.Company?.CompanyOverview[0].location} . {data?.jobType}
             </div>
           </div>
-          <FormModalApply />
+          <FormModalApply
+            image={data.image}
+            roles={data?.roles!!}
+            jobType={data?.jobType!!}
+            location={data?.Company?.CompanyOverview[0].location!!}
+          />
         </div>
       </div>
 
