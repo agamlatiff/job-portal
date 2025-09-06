@@ -7,6 +7,8 @@ import { getServerSession } from "next-auth";
 import React from "react";
 import prisma from "../../../../lib/prisma";
 
+export const revalidate = 0;
+
 async function getDetailCompany() {
   const session = await getServerSession(authOptions);
 

@@ -64,7 +64,7 @@ const DetailCompanyPage: FC<DetailCompanyPageProps> = async ({ params }) => {
 
   return (
     <>
-      {data && (
+      {data && data.CompanyOverview && (
         <>
           <div>
             <div className="bg-slate-100 px-32 pt-16 pb-14">
@@ -96,7 +96,8 @@ const DetailCompanyPage: FC<DetailCompanyPageProps> = async ({ params }) => {
                     width={150}
                     height={150}
                   />
-                  <div>
+               {data.CompanyOverview && (
+                   <div>
                     <div className="inline-flex gap-4 items-center">
                       <span className="text-4xl font-semibold">
                         {data.CompanyOverview?[0].name}
@@ -163,6 +164,7 @@ const DetailCompanyPage: FC<DetailCompanyPageProps> = async ({ params }) => {
                       </div>
                     </div>
                   </div>
+               )}
                 </div>
               </div>
             </div>
@@ -174,7 +176,8 @@ const DetailCompanyPage: FC<DetailCompanyPageProps> = async ({ params }) => {
                   <div className="text-muted-foreground" dangerouslySetInnerHTML={{__html : data.CompanyOverview[0].description}}>
                   </div>
                 </div>
-                <div>
+{data.CompanySocialMedia && (
+                  <div>
                   <div className="text-3xl font-semibold mb-4">Contact</div>
                   <div className="flex items-center gap-5 w-[400px] flex-wrap">
                     <div className="p-2 border border-primary text-primary w-max inline-flex items-center gap-3 font-semibold">
@@ -199,6 +202,7 @@ const DetailCompanyPage: FC<DetailCompanyPageProps> = async ({ params }) => {
                     </div>
                   </div>
                 </div>
+)}
               </div>
 
               <div className="w-1/4">
@@ -215,7 +219,8 @@ const DetailCompanyPage: FC<DetailCompanyPageProps> = async ({ params }) => {
             </div>
           </div>
 
-          <div className="px-32">
+      {data.CompanyTeam &&  (
+            <div className="px-32">
             <Separator />
             <div className="my-16">
               <div className="text-3xl font-semibold mb-4">Teams</div>
@@ -242,6 +247,7 @@ const DetailCompanyPage: FC<DetailCompanyPageProps> = async ({ params }) => {
             </div>
             <Separator />
           </div>
+)}
         </>
       )}
       <div className="px-32 mt-16">

@@ -50,13 +50,16 @@ async function getDetailJob(id: string) {
     where: {
       userId: session?.user.id,
     },
+    
   });
+  
+  const benefits : any = data?.benefits
 
   if (!session) {
-    return { ...data, image: imageUrl, applicants, needs, isApply: 0 };
+    return { ...data, image: imageUrl, benefits, applicants, needs, isApply: 0 };
   }
 
-  return { ...data, image: imageUrl, applicants, needs, isApply };
+  return { ...data, image: imageUrl, benefits, applicants, needs, isApply };
 }
 
 const DetailJobPage = async ({ params }: { params: { id: string } }) => {
