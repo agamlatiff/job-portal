@@ -8,6 +8,8 @@ import Link from "next/link";
 import React from "react";
 import { BiCategory } from "react-icons/bi";
 import prisma from "../../../../../../../lib/prisma";
+import { supabasePublicUrl } from "@/lib/supabase";
+import { dateFormat } from "@/lib/utils";
 
 interface DetailJobPageProps {}
 
@@ -25,8 +27,22 @@ async function getDetailJob(id: string) {
       CategoryJob: true,
     },
   });
+  
+  const applicants =  data?.applicants || 0
+  const needs = data?.needs || 0
 
-  return data;
+  let imageUrl;
+
+  if (data?.Company?.CompanyOverview[0].image) {
+    imageUrl = await supabasePublicUrl(
+      data.Company.CompanyOverview[0].image,
+      "company"
+    );
+  } else {
+    imageUrl = "/images/company2.png";
+  }
+
+  return { ...data, image: imageUrl, applicants, needs };
 }
 
 const DetailJobPage = async ({ params }: { params: { id: string } }) => {
@@ -65,12 +81,7 @@ const DetailJobPage = async ({ params }: { params: { id: string } }) => {
 
         <div className="bg-white shadow mt-10 p-5 w-11/12 mx-auto flex flex-row justify-between items-center">
           <div className="inline-flex items-center gap-5">
-            <Image
-              src={"/images/company2.png"}
-              alt="company"
-              width={80}
-              height={80}
-            />
+            <Image src={data.image} alt="company" width={80} height={80} />
             <div className="text-2xl font-semibold">{data?.roles}</div>
             <div className="text-muted-foreground">
               {data?.Company?.CompanyOverview[0].location} . {data?.jobType}
@@ -129,13 +140,17 @@ const DetailJobPage = async ({ params }: { params: { id: string } }) => {
               <div className="flex flex-row justify-between">
                 <div className="text-gray-500">Apply Before</div>
 
-                <div className="font-semibold ">{data?.dueDate.getDate()}</div>
+                <div className="font-semibold ">
+                  {dateFormat(data?.dueDate!!)}
+                </div>
               </div>
 
               <div className="flex flex-row justify-between">
                 <div className="text-gray-500">Job Posted On</div>
 
-                <div className="font-semibold ">{data?.datePosted.getDate()}</div>
+                <div className="font-semibold ">
+                  {dateFormat(data?.datePosted)}
+                </div>
               </div>
 
               <div className="flex flex-row justify-between">
@@ -147,7 +162,9 @@ const DetailJobPage = async ({ params }: { params: { id: string } }) => {
               <div className="flex flex-row justify-between">
                 <div className="text-gray-500">Salary</div>
 
-                <div className="font-semibold ">${data?.salaryFrom}-${data?.salaryFrom}</div>
+                <div className="font-semibold ">
+                  ${data?.salaryFrom}-${data?.salaryFrom}
+                </div>
               </div>
             </div>
           </div>
@@ -167,7 +184,7 @@ const DetailJobPage = async ({ params }: { params: { id: string } }) => {
         <div>
           <div className="text-3xl font-semibold">Required Skills</div>
           <div className="my-10 inline-flex gap-4">
-            {data?.requiredSkills.map((item: string) => (
+            {data?.requiredSkills?.map((item: string) => (
               <Badge key={item} variant={"outline"}>
                 {item}
               </Badge>
@@ -186,13 +203,12 @@ const DetailJobPage = async ({ params }: { params: { id: string } }) => {
         </div>
 
         <div className="grid grid-cols-5 gap-5">
-          {[0, 1, 2].map((item: number) => (
+          {data?.benefits?.map((item: any) => (
             <div key={item}>
               <BiCategory className="size-12 text-primary " />
-              <div className="font-semibold text-xl mt-6">Full Healtcare</div>
+              <div className="font-semibold text-xl mt-6">{item.benefit}</div>
               <div className="mt-3 text-sm text-gray-500">
-                We believe in thriving communities and that starts wth our team
-                being happy and healthy.
+                {item.description}
               </div>
             </div>
           ))}
