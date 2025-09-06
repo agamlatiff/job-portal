@@ -10,10 +10,14 @@ import { BiCategory } from "react-icons/bi";
 import prisma from "../../../../../../../lib/prisma";
 import { supabasePublicUrl } from "@/lib/supabase";
 import { dateFormat } from "@/lib/utils";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/(landing-page)/api/auth/[...nextauth]/route";
 
 interface DetailJobPageProps {}
 
 async function getDetailJob(id: string) {
+  const session = await getServerSession(authOptions);
+
   const data = await prisma.job.findFirst({
     where: {
       id,
@@ -42,11 +46,22 @@ async function getDetailJob(id: string) {
     imageUrl = "/images/company2.png";
   }
 
-  return { ...data, image: imageUrl, applicants, needs };
+  const isApply = await prisma.applicant.count({
+    where: {
+      userId: session?.user.id,
+    },
+  });
+
+  if (!session) {
+    return { ...data, image: imageUrl, applicants, needs, isApply: 0 };
+  }
+
+  return { ...data, image: imageUrl, applicants, needs, isApply };
 }
 
 const DetailJobPage = async ({ params }: { params: { id: string } }) => {
   const data = await getDetailJob(params.id);
+  const session = await getServerSession(authOptions);
 
   return (
     <>
@@ -87,13 +102,33 @@ const DetailJobPage = async ({ params }: { params: { id: string } }) => {
               {data?.Company?.CompanyOverview[0].location} . {data?.jobType}
             </div>
           </div>
-          <FormModalApply
-          id={data.id}
-            image={data.image}
-            roles={data?.roles!!}
-            jobType={data?.jobType!!}
-            location={data?.Company?.CompanyOverview[0].location!!}
-          />
+          {session ? (
+            <>
+              {data.isApply === 1 ? (
+                <Button className="text-lg px-12 py-6 bg=green-500" disabled>
+                  Applied
+                </Button>
+              ) : (
+                <FormModalApply
+                  isApply={data.isApply}
+                  id={data.id}
+                  image={data.image}
+                  roles={data?.roles!!}
+                  jobType={data?.jobType!!}
+                  location={data?.Company?.CompanyOverview[0].location!!}
+                />
+              )}
+            </>
+          ) : (
+            <Button
+              size={"lg"}
+              variant={"outline"}
+              disabled
+              className="text-lg px-12 py-6"
+            >
+              Sign In First
+            </Button>
+          )}
         </div>
       </div>
 
