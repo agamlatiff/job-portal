@@ -2,7 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import bcyrpt from "bcryptjs";
 import moment from "moment";
-import type { categoryJobType, JobType } from "@/app/types";
+import type { categoryJobType, CompanyType, JobType } from "@/app/types";
 import { supabasePublicUrl } from "./supabase";
 import type { optionType } from "@/constants";
 
@@ -130,18 +130,22 @@ export const parsingCompanies = async (
           imageUrl = "/images/company/png";
         }
 
-        const job: JobType = {
+        const companyDetail = item.CompanyOverview[0];
+
+        const job: CompanyType = {
           id: item.id,
-          name: item.roles,
-          applicants: item.applicants,
-          category: item.CategoryJob,
-          desc: item.description,
-          jobType: item.jobType,
+          name: companyDetail?.name,
           image: imageUrl,
-          location: item.Company?.CompanyOverview[0]?.location,
-          needs: item.needs,
-          type: item.CategoryJob.name,
-          skills: item.requiredSkills,
+          dateFounded: companyDetail?.dateFounded,
+          description: companyDetail?.description,
+          employee: companyDetail?.employee,
+          industry: companyDetail?.industry,
+          location: companyDetail?.location,
+          techStaack: companyDetail?.techStaack,
+          website: companyDetail?.website,
+          sosmed: item.CompanySocialMedia[0],
+          teams: item?.CompanyTeam,
+          totalJobs: item?._count.Job,
         };
 
         return job;

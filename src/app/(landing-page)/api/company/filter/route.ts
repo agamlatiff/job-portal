@@ -28,6 +28,7 @@ export async function GET(request: Request) {
     include: {
       CompanyOverview: true,
       CompanyTeam: true,
+      CompanySocialMedia: true,
       _count: {
         select: { Job: true },
       },

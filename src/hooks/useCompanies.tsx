@@ -1,5 +1,5 @@
 import type { JobType } from "@/app/types";
-import { fetcher, parsingJobs } from "@/lib/utils";
+import { fetcher, parsingCompanies } from "@/lib/utils";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import useSWR from "swr";
 
@@ -17,13 +17,13 @@ const useCompanies = (filter?: string[]) => {
   const { data, error, isLoading, mutate } = useSWR(
     `${COMPANY_PATH}?category=${paramsCategory}`,
     fetcher,
-   {revalidateOnMount: false}
+    { revalidateOnMount: false }
   );
 
   const [companies, setCompanies] = useState<JobType[]>([]);
 
   const parseJobs = useCallback(async () => {
-    const parseData = await parsingJobs(data, isLoading, error);
+    const parseData = await parsingCompanies(data, isLoading, error);
 
     setCompanies(parseData);
   }, [data, isLoading, error]);

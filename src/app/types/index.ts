@@ -9,7 +9,7 @@ export type JobType = {
   category: categoryJobType;
   needs: number;
   applicants: number;
-  skills : string[]
+  skills: string[];
 };
 
 export type optionType = {
@@ -23,16 +23,41 @@ export type filterFormType = {
   items: optionType[];
 };
 
-export type CompanyType = {
-  image: string;
-  totalJobs: number;
+export type CompanyTeamType = {
+  id: string;
   name: string;
-  description: string;
-  categories: string;
+  position: string;
+  instagram: string;
+  linkedin: string;
+};
+
+export type CompanySosmedType = {
+  id: string;
+  instagram: string;
+  twitter: string;
+  facebook: string;
+  linkedin: string;
+  youtube: string;
 };
 
 export type categoryJobType = {
   id: string;
   name: string;
   totalJobs: number;
+};
+
+export type CompanyType = {
+  id: string;
+  image: string;
+  totalJobs: number;
+  name: string;
+  description: string;
+  website: string;
+  location: string;
+  industry: string;
+  dateFounded: Date;
+  techStaack: string[];
+  sosmed: CompanySosmedType;
+  teams: CompanyTeamType;
+  employee: string
 };
