@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import bcyrpt from "bcryptjs";
 import moment from "moment";
+import type { companyJobType } from "@/app/types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -47,6 +48,8 @@ export const parsingCategories = (
         name: item.name,
         totalJobs: item._count.job,
       };
-    });
-  }
+    }) as companyJobType[]
+  } 
+  
+  return []
 };
