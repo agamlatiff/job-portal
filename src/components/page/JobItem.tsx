@@ -1,4 +1,4 @@
-import type { categoryJobType, JobType } from "@/app/types";
+import type { JobType } from "@/app/types";
 import Image from "next/image";
 import type { FC } from "react";
 import { Badge } from "../ui/badge";
@@ -12,7 +12,7 @@ const JobItem: FC<JobItemProps> = ({
   type,
   location,
   desc,
-  categories,
+  category,
 }) => {
   return (
     <div className="border border-border p-6 cursor-pointer">
@@ -37,7 +37,7 @@ const JobItem: FC<JobItemProps> = ({
           variant={"outline"}
           className="rounded border-primary bg-primary/5 text-pimary"
         >
-          {categories.name}
+          {category.name}
         </Badge>
       </div>
     </div>
