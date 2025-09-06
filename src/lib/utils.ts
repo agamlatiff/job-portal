@@ -3,6 +3,7 @@ import { twMerge } from "tailwind-merge";
 import bcyrpt from "bcryptjs";
 import moment from "moment";
 import type { categoryJobType, JobType } from "@/app/types";
+import { supabasePublicUrl } from "./supabase";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -54,10 +55,23 @@ export const parsingCategories = (
   return [];
 };
 
-export const parsingJobs = async (data: any, isLoading: boolean, error: any) => {
+export const parsingJobs = async (
+  data: any,
+  isLoading: boolean,
+  error: any
+) => {
   if (!isLoading && !error && data) {
     return await Promise.all(
       data.map(async (item: any) => {
+        let imageName = item.Company?.CompanyOverview[0]?.image;
+        let imageUrl;
+
+        if (imageName) {
+          imageUrl = await supabasePublicUrl(imageName, "company");
+        } else {
+          imageUrl = "/images/company/png";
+        }
+
         const job: JobType = {
           id: item.id,
           name: item.roles,
@@ -65,7 +79,7 @@ export const parsingJobs = async (data: any, isLoading: boolean, error: any) => 
           categories: item.CategoryJob,
           desc: item.description,
           jobType: item.jobType,
-          image: "/images/company2.png",
+          image: imageUrl,
           location: item.Company?.CompanyOverview[0]?.location,
           needs: item.needs,
           type: item.CategoryJob.name,

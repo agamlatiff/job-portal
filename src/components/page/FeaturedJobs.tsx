@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+"use client";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import TitleSection from "./TitleSection";
 import JobItem from "./JobItem";
 import useSWR from "swr";
@@ -8,10 +9,21 @@ import type { JobType } from "@/app/types";
 const FeaturedJobs = () => {
   const { data, isLoading, error } = useSWR("/api/job/featured", fetcher);
 
-  const jobs = useMemo(
-    () => parsingJobs(data, isLoading, error),
-    [data, isLoading, error]
-  );
+  const [jobs, setJobs] = useState<JobType[]>([]);
+
+  const parseJobs = useCallback(async () => {
+    const parseData = await parsingJobs(data, isLoading, error);
+    setJobs(parseData);
+  }, [data, isLoading, error]);
+
+  // const jobs = useMemo(
+  //   () => parsingJobs(data, isLoading, error),
+  //   [data, isLoading, error]
+  // );
+
+  useEffect(() => {
+    parseJobs();
+  }, [data, isLoading, error]);
 
   return (
     <div className="mt-32 mb-10">
