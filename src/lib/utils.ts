@@ -1,31 +1,52 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
-import bcyrpt from 'bcryptjs'
-import moment from "moment"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+import bcyrpt from "bcryptjs";
+import moment from "moment";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 export const hashPassword = async (password: string) => {
-  const hashedPassword = await bcyrpt.hash(password, 8)
-  
-  return hashedPassword
+  const hashedPassword = await bcyrpt.hash(password, 8);
+
+  return hashedPassword;
+};
+
+export const comparePassword = async (
+  password: string,
+  hashedPassword: string
+) => {
+  const isMatch = await bcyrpt.compare(password, hashedPassword);
+
+  return isMatch;
+};
+
+export async function fetcher<JSON = any>(
+  input: RequestInfo,
+  init?: RequestInit
+): Promise<JSON> {
+  const res = await fetch(input, init);
+
+  return res.json() as Promise<JSON>;
 }
 
-export const comparePassword = async (password: string, hashedPassword: string) => {
-  const isMatch = await bcyrpt.compare(password, hashedPassword)
-  
-  return isMatch
-}
+export const dateFormat = (date: any, format: string = "DD MMM YYYY") => {
+  return moment(date).format(format);
+};
 
-export async function fetcher<JSON = any> (input: RequestInfo, init? : RequestInit): Promise<JSON> {
-  const res = await fetch(input, init)
-  
-  return res.json() as Promise<JSON>
-}
-
-
-export const dateFormat = (date: any, format : string = 'DD MMM YYYY') => {
-  return moment(date).format(format)
-}
+export const parsingCategories = (
+  data: any,
+  isLoading: boolean,
+  error: any
+) => {
+  if (!isLoading && !error && data) {
+    return data.map((item: any) => {
+      return {
+        id: item.id,
+        name: item.name,
+        totalJobs: item._count.job,
+      };
+    });
+  }
+};

@@ -39,3 +39,4 @@ export const formSignUpSchema = z.object({
     .string({ message: "Name is required" })
     .min(3, { message: "Name should have minimal 3 characters" }),
 });
+
