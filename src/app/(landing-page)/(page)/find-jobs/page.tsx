@@ -1,55 +1,44 @@
 "use client";
 
 import ExploreDataContainer from "@/app/containers/ExploreDataContainer";
-import type { filterFormType, JobType } from "@/app/types";
-import { CATEGORIES_OPTIONS } from "@/constants";
 import useCategoryJobFilter from "@/hooks/useCategoryJobFilter";
+import useJobs from "@/hooks/useJobs";
 import { formFilterSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import type z from "zod";
 
-const FILTER_FORMS: filterFormType[] = [
-  { name: "categories", label: "Categories", items: CATEGORIES_OPTIONS },
-];
-
-const dummyData: JobType[] = [
-  {
-    applicants: 5,
-    categories: ["Marketing", "Design"],
-    desc: "Lorem",
-    image: "/images/company2.png",
-    name: "Social Media Assistant",
-    needs: 10,
-    type: "Agency",
-    jobType: "Full-Time",
-    location: "Paris, France",
-  },
-];
-
 const FindJobsPage = () => {
-  const {filters} = useCategoryJobFilter()
-  
-  const formFIlter = useForm<z.infer<typeof formFilterSchema>>({
+  const { filters } = useCategoryJobFilter();
+
+  const formFilter = useForm<z.infer<typeof formFilterSchema>>({
     resolver: zodResolver(formFilterSchema),
     defaultValues: {
       categories: [],
     },
   });
+  const [categories, setCategories] = useState<string[]>([]);
+
+  const { jobs, isLoading, mutate } = useJobs(categories);
 
   const onSubmitFormFilter = async (val: z.infer<typeof formFilterSchema>) => {
-    console.log(val);
+    setCategories(val.categories);
   };
+
+  useEffect(() => {
+    mutate();
+  }, [categories]);
 
   return (
     <ExploreDataContainer
       type="job"
-      data={dummyData}
+      data={jobs}
       title="dream job"
       subtitle="Find your next career at companies like HubSpot, Nike, and Dropbox"
-      loading={false}
-      filterForms={FILTER_FORMS}
-      formFilter={formFIlter}
+      loading={isLoading}
+      filterForms={filters}
+      formFilter={formFilter}
       onSubmitFilter={onSubmitFormFilter}
     />
   );
