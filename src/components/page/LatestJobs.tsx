@@ -1,7 +1,7 @@
 import useFeaturedJobs from "@/hooks/useFeaturedJobs";
-import JobItem from "./JobItem";
 import TitleSection from "./TitleSection";
 import type { JobType } from "@/app/types";
+import LatestJobItem from "./LatestJobItem";
 
 const LatestJobs = () => {
   const { jobs, isLoading, error } = useFeaturedJobs();
@@ -11,7 +11,7 @@ const LatestJobs = () => {
       <TitleSection word1="Latest" word2="jobs open" />
       <div className="mt-12 grid grid-cols-3 gap-8">
         {jobs.map((item: JobType) => (
-          <JobItem key={item.id} {...item} />
+          <LatestJobItem key={item.id} {...item} />
         ))}
       </div>
     </div>

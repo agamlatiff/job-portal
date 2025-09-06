@@ -7,7 +7,7 @@ import { Separator } from "../ui/separator";
 interface LatestJobItemProps extends JobType {}
 
 const LatestJobItem: FC<LatestJobItemProps> = ({
-  category,
+  skills,
   image,
   jobType,
   location,
@@ -27,12 +27,15 @@ const LatestJobItem: FC<LatestJobItemProps> = ({
         <div className="h-5 inline-flex gap-2 items-center">
           <Badge variant={"secondary"}>{jobType}</Badge>
           <Separator orientation="vertical" />
-          <Badge
-            variant={"outline"}
-            className="rounded border-primary bg-primary/5 text-pimary"
-          >
-            {category.name}
-          </Badge>
+          {skills.map((item: string, i: number) => (
+            <Badge
+              variant={"outline"}
+              className="rounded border-primary bg-primary/5 text-pimary"
+              key={i}
+            >
+              {item}
+            </Badge>
+          ))}
         </div>
       </div>
     </div>

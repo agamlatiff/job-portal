@@ -83,6 +83,7 @@ export const parsingJobs = async (
           location: item.Company?.CompanyOverview[0]?.location,
           needs: item.needs,
           type: item.CategoryJob.name,
+          skills: item.requiredSkills
         };
 
         return job;
