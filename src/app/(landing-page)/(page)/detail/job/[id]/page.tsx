@@ -7,10 +7,31 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { BiCategory } from "react-icons/bi";
+import prisma from "../../../../../../../lib/prisma";
 
 interface DetailJobPageProps {}
 
-const DetailJobPage = () => {
+async function getDetailJob(id: string) {
+  const data = await prisma.job.findFirst({
+    where: {
+      id,
+    },
+    include: {
+      Company: {
+        include: {
+          CompanyOverview: true,
+        },
+      },
+      CategoryJob: true,
+    },
+  });
+
+  return data;
+}
+
+const DetailJobPage = async ({ params }: { params: { id: string } }) => {
+  const data = await getDetailJob(params.id);
+
   return (
     <>
       <div className="bg-slate-100 px-32 pt-10 pb-14">
@@ -27,17 +48,17 @@ const DetailJobPage = () => {
           </Link>{" "}
           /{" "}
           <Link
-            href={"/detail-company/1"}
+            href={`/detail-company/${data?.Company?.CompanyOverview[0].id}`}
             className="hover:underline hover:text-black"
           >
-            Twitter
+            {data?.Company?.CompanyOverview[0].name}
           </Link>{" "}
           /{" "}
           <Link
-            href={"/detail-job/1"}
+            href={`/detail/job${data?.id}`}
             className="hover:underline hover:text-black"
           >
-            Social Media Assistant
+            {data?.roles}
           </Link>{" "}
           /{" "}
         </div>
@@ -45,17 +66,17 @@ const DetailJobPage = () => {
         <div className="bg-white shadow mt-10 p-5 w-11/12 mx-auto flex flex-row justify-between items-center">
           <div className="inline-flex items-center gap-5">
             <Image
-              src={"/images/compan2.png"}
+              src={"/images/company2.png"}
               alt="company"
               width={80}
               height={80}
             />
-            <div className="text-2xl font-semibold">Social Media Assistant</div>
+            <div className="text-2xl font-semibold">{data?.roles}</div>
             <div className="text-muted-foreground">
-              Agency . Paris France . Full-Time
+              {data?.Company?.CompanyOverview[0].location} . {data?.jobType}
             </div>
           </div>
-  <FormModalApply/>
+          <FormModalApply />
         </div>
       </div>
 
@@ -63,39 +84,31 @@ const DetailJobPage = () => {
         <div className="w-3/4">
           <div className="mb-16">
             <div className="text-3xl font-semibold">Description</div>
-            <div className="text-muted-foreground">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-              rem omnis laboriosam repellendus alias fuga, voluptate amet
-              eligendi officiis officia ipsa optio, incidunt nulla cupiditate
-              voluptatum reprehenderit maiores! Numquam, optio?
-            </div>
+            <div
+              className="text-muted-foreground"
+              dangerouslySetInnerHTML={{ __html: data?.description!! }}
+            ></div>
           </div>
           <div className="mb-16">
             <div className="text-3xl font-semibold">Responsibilities</div>
-            <div className="text-muted-foreground">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-              rem omnis laboriosam repellendus alias fuga, voluptate amet
-              eligendi officiis officia ipsa optio, incidunt nulla cupiditate
-              voluptatum reprehenderit maiores! Numquam, optio?
-            </div>
+            <div
+              className="text-muted-foreground"
+              dangerouslySetInnerHTML={{ __html: data?.responsibility!! }}
+            ></div>
           </div>
           <div className="mb-16">
             <div className="text-3xl font-semibold">Who You Are</div>
-            <div className="text-muted-foreground">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-              rem omnis laboriosam repellendus alias fuga, voluptate amet
-              eligendi officiis officia ipsa optio, incidunt nulla cupiditate
-              voluptatum reprehenderit maiores! Numquam, optio?
-            </div>
+            <div
+              className="text-muted-foreground"
+              dangerouslySetInnerHTML={{ __html: data?.whoYouAre!! }}
+            ></div>
           </div>
           <div className="mb-16">
             <div className="text-3xl font-semibold">Nice-To-Haves</div>
-            <div className="text-muted-foreground">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
-              rem omnis laboriosam repellendus alias fuga, voluptate amet
-              eligendi officiis officia ipsa optio, incidunt nulla cupiditate
-              voluptatum reprehenderit maiores! Numquam, optio?
-            </div>
+            <div
+              className="text-muted-foreground"
+              dangerouslySetInnerHTML={{ __html: data?.niceToHaves!! }}
+            ></div>
           </div>
         </div>
         <div className="w-1/4">
@@ -104,35 +117,37 @@ const DetailJobPage = () => {
 
             <div className="mt-6 p-4 bg-slate-50">
               <div className="mb-2">
-                <span className="font-semibold">5 Applied</span>{" "}
-                <span className="text-gray-600">of 10 capacity</span>
+                <span className="font-semibold">
+                  {data?.applicants} Applied
+                </span>{" "}
+                <span className="text-gray-600">of {data?.needs} capacity</span>
               </div>
-              <Progress value={50} />
+              <Progress value={(data?.applicants / data?.needs) * 100} />
             </div>
 
             <div className="mt-6 space-y-4">
               <div className="flex flex-row justify-between">
                 <div className="text-gray-500">Apply Before</div>
 
-                <div className="font-semibold ">July 32 m 2023</div>
+                <div className="font-semibold ">{data?.dueDate.getDate()}</div>
               </div>
 
               <div className="flex flex-row justify-between">
                 <div className="text-gray-500">Job Posted On</div>
 
-                <div className="font-semibold ">July 32 m 2023</div>
+                <div className="font-semibold ">{data?.datePosted.getDate()}</div>
               </div>
 
               <div className="flex flex-row justify-between">
                 <div className="text-gray-500">Job Type</div>
 
-                <div className="font-semibold ">Full-Time</div>
+                <div className="font-semibold ">{data?.jobType}</div>
               </div>
 
               <div className="flex flex-row justify-between">
                 <div className="text-gray-500">Salary</div>
 
-                <div className="font-semibold ">$75k-$85k</div>
+                <div className="font-semibold ">${data?.salaryFrom}-${data?.salaryFrom}</div>
               </div>
             </div>
           </div>
@@ -143,7 +158,7 @@ const DetailJobPage = () => {
         <div>
           <div className="text-3xl font-semibold">Category</div>
           <div className="my-10 inline-flex gap-4">
-            <Badge>Marketing</Badge>
+            <Badge>{data?.CategoryJob?.name}</Badge>
           </div>
         </div>
 
@@ -152,9 +167,9 @@ const DetailJobPage = () => {
         <div>
           <div className="text-3xl font-semibold">Required Skills</div>
           <div className="my-10 inline-flex gap-4">
-            {[0, 1, 2].map((item: number) => (
+            {data?.requiredSkills.map((item: string) => (
               <Badge key={item} variant={"outline"}>
-                Marketing
+                {item}
               </Badge>
             ))}
           </div>

@@ -18,11 +18,15 @@ const JobCard: FC<JobCardProps> = ({
   name,
   needs,
   type,
+  id,
 }) => {
   const router = useRouter();
 
   return (
-    <div className="w-full border p-6 border-border flex flex-row justify-between items-center">
+    <div
+      className="w-full border p-6 border-border flex flex-row justify-between items-center"
+      onClick={() => router.push("/detail/job/" + id)}
+    >
       <div className="flex flex-row items-start gap-6">
         <div>
           <Image src={image} alt={image} width={64} height={64} />
@@ -41,7 +45,7 @@ const JobCard: FC<JobCardProps> = ({
           </div>
 
           <div className="w-[200px]">
-            <Button onClick={() => router.push('/detail/job/1')}  className="w-full" size={"lg"}>
+            <Button className="w-full" size={"lg"}>
               Apply
             </Button>
             <Progress className="mt-2" value={(applicants / needs) * 100} />
