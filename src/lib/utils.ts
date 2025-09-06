@@ -4,6 +4,7 @@ import bcyrpt from "bcryptjs";
 import moment from "moment";
 import type { categoryJobType, JobType } from "@/app/types";
 import { supabasePublicUrl } from "./supabase";
+import type { optionType } from "@/constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -83,12 +84,29 @@ export const parsingJobs = async (
           location: item.Company?.CompanyOverview[0]?.location,
           needs: item.needs,
           type: item.CategoryJob.name,
-          skills: item.requiredSkills
+          skills: item.requiredSkills,
         };
 
         return job;
       })
     );
+  }
+
+  return [];
+};
+
+export const parsingCategoriesToOptions = (
+  data: any,
+  isLoading: boolean,
+  error: any
+) => {
+  if (!isLoading && !error && data) {
+    return data.map((item: any) => {
+      return {
+        id: item.id,
+        label: item.name,
+      };
+    }) as optionType[];
   }
 
   return [];

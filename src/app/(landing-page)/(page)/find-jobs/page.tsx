@@ -3,6 +3,7 @@
 import ExploreDataContainer from "@/app/containers/ExploreDataContainer";
 import type { filterFormType, JobType } from "@/app/types";
 import { CATEGORIES_OPTIONS } from "@/constants";
+import useCategoryJobFilter from "@/hooks/useCategoryJobFilter";
 import { formFilterSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -27,6 +28,8 @@ const dummyData: JobType[] = [
 ];
 
 const FindJobsPage = () => {
+  const {filters} = useCategoryJobFilter()
+  
   const formFIlter = useForm<z.infer<typeof formFilterSchema>>({
     resolver: zodResolver(formFilterSchema),
     defaultValues: {
