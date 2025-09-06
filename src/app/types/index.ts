@@ -1,11 +1,12 @@
 export type JobType = {
+  id: string;
   image: string;
   jobType: string;
   name: string;
   type: string;
   location: string;
   desc: string;
-  categories: string[];
+  categories: categoryJobType;
   needs: number;
   applicants: number;
 };
@@ -29,7 +30,7 @@ export type CompanyType = {
   categories: string;
 };
 
-export type companyJobType = {
+export type categoryJobType = {
   id: string;
   name: string;
   totalJobs: number;
